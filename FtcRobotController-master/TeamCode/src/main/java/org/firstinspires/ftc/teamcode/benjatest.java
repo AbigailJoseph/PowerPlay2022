@@ -76,50 +76,50 @@ public class benjatest extends LinearOpMode
 
             if (gamepad1.right_stick_x > 0)
             {
-                frontLeft.setPower(1.0 * gamepad1.right_stick_x);
-                frontRight.setPower(-1.0 * gamepad1.right_stick_x);
-                backLeft.setPower(-1.0 * gamepad1.right_stick_x);
-                backRight.setPower(1.0 * gamepad1.right_stick_x);
+                frontLeft.setPower(gamepad1.right_stick_x);
+                frontRight.setPower(-gamepad1.right_stick_x);
+                backLeft.setPower(-gamepad1.right_stick_x);
+                backRight.setPower(gamepad1.right_stick_x);
             }
 
-            if (gamepad1.right_stick_x == -1)
+            if (gamepad1.right_stick_x < 0)
             {
-                frontLeft.setPower(-1.0);
-                frontRight.setPower(1.0);
-                backLeft.setPower(1.0);
-                backRight.setPower(-1.0);
+                frontLeft.setPower(-gamepad1.right_stick_x);
+                frontRight.setPower(gamepad1.right_stick_x);
+                backLeft.setPower(gamepad1.right_stick_x);
+                backRight.setPower(-gamepad1.right_stick_x);
             }
 
-            if (gamepad1.right_stick_y == 1)
+            if (gamepad1.right_stick_y > 0)
             {
-                frontLeft.setPower(1.0);
-                frontRight.setPower(1.0);
-                backLeft.setPower(1.0);
-                backRight.setPower(1.0);
+                frontLeft.setPower(gamepad1.right_stick_y);
+                frontRight.setPower(gamepad1.right_stick_y);
+                backLeft.setPower(gamepad1.right_stick_y);
+                backRight.setPower(gamepad1.right_stick_y);
             }
 
-            if (gamepad1.right_stick_y == -1)
+            if (gamepad1.right_stick_y < 0)
             {
-                frontLeft.setPower(-1.0);
-                frontRight.setPower(-1.0);
-                backLeft.setPower(-1.0);
-                backRight.setPower(-1.0);
+                frontLeft.setPower(-gamepad1.right_stick_y);
+                frontRight.setPower(-gamepad1.right_stick_y);
+                backLeft.setPower(-gamepad1.right_stick_y);
+                backRight.setPower(-gamepad1.right_stick_y);
             }
 
-            if (gamepad1.left_stick_x == 1)
+            if (gamepad1.left_stick_x > 0)
             {
-                frontLeft.setPower(1.0);
-                frontRight.setPower(-1.0);
-                backLeft.setPower(1.0);
-                backRight.setPower(-1.0);
+                frontLeft.setPower(gamepad1.left_stick_x);
+                frontRight.setPower(-gamepad1.left_stick_x);
+                backLeft.setPower(gamepad1.left_stick_x);
+                backRight.setPower(-gamepad1.left_stick_x);
             }
 
-            if (gamepad1.left_stick_x == -1)
+            if (gamepad1.left_stick_x < 0)
             {
-                frontLeft.setPower(-1.0);
-                frontRight.setPower(1.0);
-                backLeft.setPower(-1.0);
-                backRight.setPower(1.0);
+                frontLeft.setPower(-gamepad1.left_stick_x);
+                frontRight.setPower(gamepad1.left_stick_x);
+                backLeft.setPower(-gamepad1.left_stick_x);
+                backRight.setPower(gamepad1.left_stick_x);
             }
         }
     }
