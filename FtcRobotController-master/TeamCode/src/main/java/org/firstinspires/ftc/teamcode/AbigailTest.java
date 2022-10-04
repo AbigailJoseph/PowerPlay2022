@@ -75,11 +75,15 @@ public class AbigailTest extends LinearOpMode{
                 backRightPower  /= max;
             }
 
+            if(gamepad1.dpad_up){
+
+                frontLeft.setPower(1);
+            }
             // Send calculated power to wheels
             frontLeft.setPower(frontLeftPower);
-            backLeft.setPower(frontLeftPower);
+            backLeft.setPower(backLeftPower);
             frontRight.setPower(backLeftPower);
-            backRight.setPower(backRightPower);
+            backRight.setPower(frontRightPower);
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
