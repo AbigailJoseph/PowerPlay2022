@@ -106,7 +106,7 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        // run until the end of the match (driver presses STOP)
+        // run until the end of the mat ch (driver presses STOP)
         while (opModeIsActive()) {
             double max;
 
