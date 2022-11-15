@@ -136,8 +136,11 @@ public class RobotAutoDriveByEncoder_Linear extends LinearOpMode {
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
-        int newLeftTarget;
-        int newRightTarget;
+        int newBackLeftTarget;
+        int newFrontLeftTarget;
+        int newBackRightTarget;
+        int newFrontRightTarget;
+
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
