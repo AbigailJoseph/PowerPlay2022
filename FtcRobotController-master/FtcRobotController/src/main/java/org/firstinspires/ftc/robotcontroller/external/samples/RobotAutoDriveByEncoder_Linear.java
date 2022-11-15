@@ -140,6 +140,8 @@ public class RobotAutoDriveByEncoder_Linear extends LinearOpMode {
         int newFrontLeftTarget;
         int newBackRightTarget;
         int newFrontRightTarget;
+        int newLeftTarget;
+        int newRightTarget;
 
 
         // Ensure that the opmode is still active
