@@ -50,16 +50,16 @@ public class SampleWheelCode extends LinearOpMode {
                 backRight.setPower(-1.0);
             }
             if(gamepad1.right_stick_x > 0){ //move right
-                frontLeft.setPower(1.0);
-                frontRight.setPower(-1.0);
-                backLeft.setPower(-1.0);
-                backRight.setPower(1.0);
-            }
-            if(gamepad1.right_stick_x < 0){ //move left
                 frontLeft.setPower(-1.0);
                 frontRight.setPower(1.0);
                 backLeft.setPower(1.0);
                 backRight.setPower(-1.0);
+            }
+            if(gamepad1.right_stick_x < 0){ //move left
+                frontLeft.setPower(1.0);
+                frontRight.setPower(-1.0);
+                backLeft.setPower(-1.0);
+                backRight.setPower(1.0);
             }
             else{ //stop
                 frontLeft.setPower(0);
@@ -71,16 +71,16 @@ public class SampleWheelCode extends LinearOpMode {
             //LEFT STICK
             if(gamepad1.left_stick_x > 0){ //rotate right
 
-                frontLeft.setPower(1.0);
-                frontRight.setPower(-1.0);
-                backLeft.setPower(1.0);
-                backRight.setPower(-1.0);
-            }
-            if(gamepad1.left_stick_x < 0) { //rotate left
                 frontLeft.setPower(-1.0);
                 frontRight.setPower(1.0);
                 backLeft.setPower(-1.0);
                 backRight.setPower(1.0);
+            }
+            if(gamepad1.left_stick_x < 0) { //rotate left
+                frontLeft.setPower(1.0);
+                frontRight.setPower(-1.0);
+                backLeft.setPower(1.0);
+                backRight.setPower(-1.0);
             }
             else{ //stop
                 frontLeft.setPower(0);
