@@ -106,7 +106,7 @@ public class benjatest extends LinearOpMode
             }
 
             if (gamepad1.left_stick_x > 0)
-            {
+            { //right
                 frontLeft.setPower(gamepad1.left_stick_x);
                 frontRight.setPower(-gamepad1.left_stick_x);
                 backLeft.setPower(gamepad1.left_stick_x);
