@@ -45,6 +45,15 @@ public class RedAuto extends LinearOpMode {
 
         encoderWheelDrive(DRIVE_SPEED, 35.25, 35.25, 35.25, 35.25);
         encoderWheelDrive(DRIVE_SPEED, 23.5, -23.5, -23.5,23.5);
+
+        //if red color sensor value is highest - ZONE 1
+        
+
+        //if green color sensor value is highest - ZONE 2
+
+        //if blue color sensor value is highest - ZONE 3
+
+
     }
 
     public void encoderWheelDrive(double speed,
