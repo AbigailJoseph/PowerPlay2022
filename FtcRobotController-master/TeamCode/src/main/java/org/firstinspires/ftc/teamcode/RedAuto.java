@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Autonomous(name="RedAuto")
@@ -19,12 +20,14 @@ public class RedAuto extends LinearOpMode {
     public DcMotor backRight;
     public DcMotor frontLeft;
     public DcMotor backLeft;
+    public ColorSensor sensor;
 
     public void runOpMode(){
         frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");//need to rename
         backLeft  = hardwareMap.get(DcMotor.class, "backLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
+        sensor = hardwareMap.get(ColorSensor.class, "sensor");
 
         frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -43,17 +46,44 @@ public class RedAuto extends LinearOpMode {
 
         waitForStart();
 
-        encoderWheelDrive(DRIVE_SPEED, 35.25, 35.25, 35.25, 35.25);
-        encoderWheelDrive(DRIVE_SPEED, 23.5, -23.5, -23.5,23.5);
+        //encoderWheelDrive(DRIVE_SPEED, 35.25, 35.25, 35.25, 35.25);
+        //encoderWheelDrive(DRIVE_SPEED, 23.5, -23.5, -23.5,23.5);
 
         //if red color sensor value is highest - ZONE 1
-        
+
+        if (sensor.red() >= 700)
+        {
+            if (sensor.red() > sensor.blue() && sensor.red() > sensor.green())
+            {
+                // movement straight by 2 tiles and left by 1 tile
+                encoderWheelDrive(DRIVE_SPEED, 47, 47, 47, 47);
+                encoderWheelDrive(DRIVE_SPEED, -23.5, 23.5, 23.5, -23.5);
+            }
+
+        }
 
         //if green color sensor value is highest - ZONE 2
 
+        else if (sensor.green() >= 700)
+        {
+            /*if ((sensor.green() > sensor.blue() && sensor.green() > sensor.red())
+            {
+                // movement straight by 2 tiles
+                encoderWheelDrive(DRIVE_SPEED, 47, 47, 47, 47);
+            }*/
+        }
+
         //if blue color sensor value is highest - ZONE 3
 
-
+        else if (sensor.blue() >= 700)
+        {
+           /* if ((sensor.blue() > sensor.red() && sensor.blue() > sensor.green())
+            {
+                // movement straight by 2 tiles and right by 1 tile
+                encoderWheelDrive(DRIVE_SPEED, 47, 47, 47, 47);
+                encoderWheelDrive(DRIVE_SPEED, 23.5, -23.5, -23.5, 23.5);
+            }*/
+        }
     }
 
     public void encoderWheelDrive(double speed,
