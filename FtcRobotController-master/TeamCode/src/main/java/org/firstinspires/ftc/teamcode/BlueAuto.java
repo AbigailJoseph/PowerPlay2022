@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name="RedAuto")
-public class RedAuto extends LinearOpMode {
+@Autonomous(name="BlueAuto")
+public class BlueAuto extends LinearOpMode {
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // No External Gearing.
@@ -42,9 +42,6 @@ public class RedAuto extends LinearOpMode {
         backRight.setDirection(DcMotor.Direction.FORWARD);
 
         waitForStart();
-
-        encoderWheelDrive(DRIVE_SPEED, 35.25, 35.25, 35.25, 35.25);
-        encoderWheelDrive(DRIVE_SPEED, 23.5, -23.5, -23.5,23.5);
 
         //if red color sensor value is highest - ZONE 1
 
@@ -106,3 +103,4 @@ public class RedAuto extends LinearOpMode {
         //  sleep(250);   // pause after each move
     }
 }
+
