@@ -36,32 +36,36 @@ public class SampleWheelCode extends LinearOpMode {
         while(opModeIsActive()){
 
             //RIGHT STICK
-            if(gamepad1.right_stick_y > 0){ //move forward
-
+            if(gamepad1.right_stick_y > 0.3)
+            { // move forward
                 frontLeft.setPower(1.0);
                 frontRight.setPower(1.0);
                 backLeft.setPower(1.0);
                 backRight.setPower(1.0);
             }
-            if(gamepad1.right_stick_y < 0){ //move backward
+            if(gamepad1.right_stick_y < -0.3)
+            { // move backward
                 frontLeft.setPower(-1.0);
                 frontRight.setPower(-1.0);
                 backLeft.setPower(-1.0);
                 backRight.setPower(-1.0);
             }
-            if(gamepad1.right_stick_x > 0){ //move right
+            if(gamepad1.right_stick_x > 0.3)
+            { // move right
                 frontLeft.setPower(-1.0);
                 frontRight.setPower(1.0);
                 backLeft.setPower(1.0);
                 backRight.setPower(-1.0);
             }
-            if(gamepad1.right_stick_x < 0){ //move left
+            if(gamepad1.right_stick_x < -0.3)
+            { // move left
                 frontLeft.setPower(1.0);
                 frontRight.setPower(-1.0);
                 backLeft.setPower(-1.0);
                 backRight.setPower(1.0);
             }
-            else{ //stop
+            else//(gamepad1.right_stick_y <= 0.3 && gamepad1.right_stick_y >= -0.3 && gamepad1.right_stick_x <= 0.3 && gamepad1.right_stick_x >= -0.3)
+            { //remain still
                 frontLeft.setPower(0);
                 frontRight.setPower(0);
                 backLeft.setPower(0);
@@ -69,26 +73,27 @@ public class SampleWheelCode extends LinearOpMode {
             }
 
             //LEFT STICK
-            if(gamepad1.left_stick_x > 0){ //rotate right
-
+            if(gamepad1.left_stick_x > 0.3)
+            { // rotate right
                 frontLeft.setPower(-1.0);
                 frontRight.setPower(1.0);
                 backLeft.setPower(-1.0);
                 backRight.setPower(1.0);
             }
-            if(gamepad1.left_stick_x < 0) { //rotate left
+            if(gamepad1.left_stick_x < 0.3)
+            { // rotate left
                 frontLeft.setPower(1.0);
                 frontRight.setPower(-1.0);
                 backLeft.setPower(1.0);
                 backRight.setPower(-1.0);
             }
-            else{ //stop
+            else//(gamepad1.left_stick_y <= 0.3 && gamepad1.left_stick_y >= -0.3 && gamepad1.left_stick_x <= 0.3 && gamepad1.left_stick_x >= -0.3)
+            { // remain still
                 frontLeft.setPower(0);
                 frontRight.setPower(0);
                 backLeft.setPower(0);
                 backRight.setPower(0);
             }
         }
-
     }
 }

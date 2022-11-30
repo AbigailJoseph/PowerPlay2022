@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="testTeleopAbigail")
-@Disabled
 public class AbigailTest extends LinearOpMode{
 
 
