@@ -67,23 +67,23 @@ public class RedAuto extends LinearOpMode {
 
         else if (sensor.green() >= 700)
         {
-            /*if ((sensor.green() > sensor.blue() && sensor.green() > sensor.red())
+            if (sensor.green() > sensor.blue() && sensor.green() > sensor.red())
             {
                 // movement straight by 2 tiles
                 encoderWheelDrive(DRIVE_SPEED, 47, 47, 47, 47);
-            }*/
+            }
         }
 
         //if blue color sensor value is highest - ZONE 3
 
         else if (sensor.blue() >= 700)
         {
-           /* if ((sensor.blue() > sensor.red() && sensor.blue() > sensor.green())
+            if (sensor.blue() > sensor.red() && sensor.blue() > sensor.green())
             {
                 // movement straight by 2 tiles and right by 1 tile
                 encoderWheelDrive(DRIVE_SPEED, 47, 47, 47, 47);
                 encoderWheelDrive(DRIVE_SPEED, 23.5, -23.5, -23.5, 23.5);
-            }*/
+            }
         }
     }
 

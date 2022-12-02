@@ -9,22 +9,22 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class SInglemotortest extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor frontLeft = null;
-    private DcMotor backLeft = null;
-    private DcMotor frontRight = null;
-    private DcMotor backRight = null;
+    private DcMotor frontLeft;
+    private DcMotor backLeft;
+    private DcMotor frontRight;
+    private DcMotor backRight;
 
     @Override
     public void runOpMode(){
-        //frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
-       // backLeft  = hardwareMap.get(DcMotor.class, "backLeft");
+        frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
+        backLeft  = hardwareMap.get(DcMotor.class, "backLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
-       // backRight = hardwareMap.get(DcMotor.class, "backRight");
+        backRight = hardwareMap.get(DcMotor.class, "backRight");
 
-      //  frontLeft.setDirection(DcMotor.Direction.REVERSE);
-      //  backLeft.setDirection(DcMotor.Direction.REVERSE);
+        frontLeft.setDirection(DcMotor.Direction.REVERSE);
+        backLeft.setDirection(DcMotor.Direction.REVERSE);
         frontRight.setDirection(DcMotor.Direction.FORWARD);
-      //  backRight.setDirection(DcMotor.Direction.FORWARD);
+        backRight.setDirection(DcMotor.Direction.FORWARD);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -36,9 +36,15 @@ public class SInglemotortest extends LinearOpMode {
         while(opModeIsActive()){
             if (gamepad1.left_stick_y > 0.3) {
                 frontRight.setPower(0.6);
+                backRight.setPower(0.6);
+                frontLeft.setPower(0.6);
+                backLeft.setPower(0.6);
             }
             if (gamepad1.left_stick_y < -0.3) {
                 frontRight.setPower(-0.6);
+                backRight.setPower(-0.6);
+                frontLeft.setPower(-0.6);
+                backLeft.setPower(-0.6);
             }
         }
 
