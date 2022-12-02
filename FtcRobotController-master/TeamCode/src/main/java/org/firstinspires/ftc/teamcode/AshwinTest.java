@@ -35,7 +35,7 @@ public class AshwinTest extends LinearOpMode {
 //        m1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        m2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        m3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        m4.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        m4.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
 //        m1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        m2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        m3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
