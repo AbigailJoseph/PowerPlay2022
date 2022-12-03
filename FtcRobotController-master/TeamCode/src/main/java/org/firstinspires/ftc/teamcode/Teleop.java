@@ -52,7 +52,7 @@ public class Teleop extends LinearOpMode {
             double turn;
 
             speed = -gamepad1.right_stick_y; //needs to be negative if right motors are flipped
-            strafe = gamepad1.right_stick_x;
+            strafe = gamepad1.right_stick_x * 1.1;
             turn = gamepad1.left_stick_x;
 
             // WHEEL MOVEMENT(left stick) & ROTATION(right stick)
@@ -68,7 +68,7 @@ public class Teleop extends LinearOpMode {
                 arm.setPower(0.3);
             }
             else if(gamepad2.y){
-                arm.setPower(0.3);;
+                arm.setPower(-0.3);;
             }
             else{
                 arm.setPower(0);
