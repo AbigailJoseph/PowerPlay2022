@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+@Autonomous(name="NewRedAuto")
 public class NewRedAuto extends LinearOpMode {
     public DcMotor frontRight; //wheel1
     public DcMotor backRight; //wheel 3
