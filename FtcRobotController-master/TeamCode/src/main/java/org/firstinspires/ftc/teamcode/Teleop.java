@@ -31,8 +31,8 @@ public class Teleop extends LinearOpMode {
     static final double     TURN_SPEED              = 0.5;
 
     //FILL THESE IN
-    //static final double CLAWCLOSE = ;
-    //static final double CLAWOPEN = ;
+    static final double CLAWCLOSE = 0.1999;
+    static final double CLAWOPEN = 0.9;
 
     @Override
     public void runOpMode(){
@@ -76,7 +76,7 @@ public class Teleop extends LinearOpMode {
             double turn;
 
             speed = -gamepad1.right_stick_y; //needs to be negative if right motors are flipped
-            strafe = gamepad1.right_stick_x * 1.1;
+            strafe = gamepad1.right_stick_x;
             turn = gamepad1.left_stick_x;
 
             // WHEEL MOVEMENT(left stick) & ROTATION(right stick)
@@ -85,30 +85,113 @@ public class Teleop extends LinearOpMode {
             backLeft.setPower(speed+turn-strafe);
             backRight.setPower(speed-turn+strafe);
 
+            //ALTERNATE WHEEL CODE
+            /*
+            if (gamepad1.right_stick_y > -0.3 && gamepad1.right_stick_y < 0.3) { //buffer zone
+                frontLeft.setPower(0);
+                frontRight.setPower(0);
+                backLeft.setPower(0);
+                backRight.setPower(0);
+            }
+            if (gamepad1.right_stick_x > -0.3 && gamepad1.right_stick_x < 0.3) { //buffer zone
+                frontLeft.setPower(0);
+                frontRight.setPower(0);
+                backLeft.setPower(0);
+                backRight.setPower(0);
+            }
+            if (gamepad1.right_stick_y > 0.3) { //forward
+                frontLeft.setPower(0.8);
+                frontRight.setPower(0.8);
+                backLeft.setPower(0.8);
+                backRight.setPower(0.8);
+
+            }
+            if (gamepad1.right_stick_y < -0.3) { //backward
+                frontLeft.setPower(0.8);
+                frontRight.setPower(-0.8);
+                backLeft.setPower(0.8);
+                backRight.setPower(-0.8);
+            }
+            if (gamepad1.right_stick_x > 0.3) { //right
+                frontLeft.setPower(0.8);
+                frontRight.setPower(-0.8);
+                backLeft.setPower(-0.8);
+                backRight.setPower(0.8);
+            }
+            if (gamepad1.right_stick_x < -0.3) { //left
+                frontLeft.setPower(-0.8);
+                frontRight.setPower(0.8);
+                backLeft.setPower(0.8);
+                backRight.setPower(-0.8);
+            }
+            if (gamepad1.left_stick_x < -0.3) { //rotate left
+                frontLeft.setPower(-0.8);
+                frontRight.setPower(0.8);
+                backLeft.setPower(-0.8);
+                backRight.setPower(0.8);
+            }
+            if (gamepad1.left_stick_x > -0.3) { //rotate right
+                frontLeft.setPower(0.8);
+                frontRight.setPower(-0.8);
+                backLeft.setPower(0.8);
+                backRight.setPower(-0.8);;
+            }
+
+             */
+
             //                                  [GAME PAD 2]
 
             // ARM TEST(button x & y)
-            if(gamepad2.y){ //up //lowest high
-               // rightArm.setTargetPosition(3050);
-                //leftArm.setTargetPosition(3050);
-                //encoderArm(0.75, 3050, -3050);
+            if(gamepad2.y){ //up
+                rightArm.setPower(0.1); // CHECK SPEED
+                leftArm.setPower(-0.1);
 
-                while(runtime.seconds() 3){
-
+            }
+            else if(gamepad2.x){  // stops at position
+                rightArm.setPower(0.0001); //OPPOSITE DIRECTION AT LOW SPEED
+                leftArm.setPower(0.0001);
+                /*
+                rightArm.setPower(0.005); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
+                leftArm.setPower(-0.005);
+                 */
+            }
+            else if (gamepad2.a){ //down
+                runtime.reset();
+                while(runtime.seconds() < 0.005){ //HOLD
+                    rightArm.setPower(0.005);
+                    leftArm.setPower(-0.005);
+                }
+                runtime.reset();
+                while(runtime.seconds() < 0.0001){ //FALL
+                    rightArm.setPower(0);
+                    leftArm.setPower(0);
                 }
 
             }
-            /*else if(gamepad2.y){ //down
-                rightArm.setPower(0.55);
-                leftArm.setPower(-0.55);
-            }*/
-            else{
+            else{ //KEEP AT POSITION WHEN NO BUTTON PRESSED
+                rightArm.setPower(0.005); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
+                leftArm.setPower(-0.005);
+
+                //OR
+                /*
+                runtime.reset();
+                while(runtime.seconds() < 5 <- CHANGE VAL // NEED TO COUNT THE # OF SECONDS IT TAKES FOR ARM TO SHOOT UP ){
+                    rightArm.setPower(0.005);
+                    leftArm.setPower(-0.005);
+                }
+                runtime.reset();
+                while(runtime.seconds() < 0.001){
+                    rightArm.setPower(0.0005);
+                    leftArm.setPower(-0.0005);
+                }
+                */
+            }
+            /*else{ //NO POWER WHEN NO BUTTON PRESSED
                 rightArm.setPower(0);
                 leftArm.setPower(0);
-            }
+            }*/
 
             // ARM(right stick)
-
             /*if(gamepad2.right_stick_y > 0.2){ //moves up
                 rightArm.setPower(0.85);
                 leftArm.setPower(-0.85);
@@ -122,6 +205,7 @@ public class Teleop extends LinearOpMode {
                 leftArm.setPower(0);
             }*/
 
+            /*
 
             // CLAW TEST(button a & b)
             if(gamepad2.right_bumper){ //open or close
@@ -133,19 +217,19 @@ public class Teleop extends LinearOpMode {
             clawPosition = Range.clip(clawPosition, -1.0, 1.0);
             claw.setPosition(clawPosition);
             telemetry.addData("Servo Position: ", clawPosition);
-            telemetry.update();
+            telemetry.update(); */
 
-            //CLAW(button a & b)
-            /*
-            if(gamepad2.a){ //open or close
+            //CLAW(bumbers)
+            if(gamepad2.left_bumper){ //close
                 clawPosition = CLAWCLOSE;
             }
-            else if(gamepad2.b){ //open or close
+            else if(gamepad2.right_bumper){ //open
                 clawPosition = CLAWOPEN;
             }
-            clawPosition = Range.clip(clawPosition, -1.0, 1.0);
+            //clawPosition = Range.clip(clawPosition, -1.0, 1.0);
             claw.setPosition(clawPosition);
-             */
+            telemetry.addData("Servo Position: ", clawPosition);
+            telemetry.update();
         }
     }
 

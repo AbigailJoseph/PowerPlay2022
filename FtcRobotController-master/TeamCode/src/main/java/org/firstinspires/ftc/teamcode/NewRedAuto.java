@@ -35,12 +35,18 @@ public class NewRedAuto extends LinearOpMode {
 
         waitForStart();
 
-        frontRight.setPower(1);
-        frontLeft.setPower(1);
-        backRight.setPower(1);
-        backLeft.setPower(1);
+        frontRight.setPower(0.8);
+        frontLeft.setPower(0.8);
+        backRight.setPower(0.8);
+        backLeft.setPower(0.8);
 
         moveForward(1000);
+
+        frontRight.setPower(0);
+        frontLeft.setPower(0);
+        backRight.setPower(0);
+        backLeft.setPower(0);
+
         //moveRight(2160);
         //moveBack(250);
 
@@ -78,13 +84,22 @@ public class NewRedAuto extends LinearOpMode {
 
     }
 
+    public void encoderStop() {
+        frontRight.setPower(0);
+        frontLeft.setPower(0);
+        backRight.setPower(0);
+        backLeft.setPower(0);
+
+    }
+
     public void moveForward(int distance) {
         reset();
-        frontRight.setTargetPosition(distance);
+        frontRight.setTargetPosition(-distance);
         frontLeft.setTargetPosition(distance);
-        backRight.setTargetPosition(distance);
+        backRight.setTargetPosition(-distance);
         backLeft.setTargetPosition(distance);
         runWheels();
+        encoderStop();
     }
 
     public void moveBack(int distance) {

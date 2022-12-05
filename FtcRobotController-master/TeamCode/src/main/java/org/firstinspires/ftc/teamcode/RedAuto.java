@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="RedAuto")
 public class RedAuto extends LinearOpMode {
@@ -21,6 +23,14 @@ public class RedAuto extends LinearOpMode {
     public DcMotor frontLeft;
     public DcMotor backLeft;
     public ColorSensor sensor;
+    private ElapsedTime runtime = new ElapsedTime();
+    private ElapsedTime downtime = new ElapsedTime();
+    private DcMotor rightArm = null;
+    private DcMotor leftArm = null;
+    private Servo claw = null;
+
+    static final double CLAWCLOSE = 0.1999;
+    static final double CLAWOPEN = 0.9;
 
     public void runOpMode(){
         frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");//need to rename
@@ -28,6 +38,11 @@ public class RedAuto extends LinearOpMode {
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         sensor = hardwareMap.get(ColorSensor.class, "sensor");
+
+        rightArm = hardwareMap.get(DcMotor.class, "rightArm");
+        leftArm = hardwareMap.get(DcMotor.class, "leftArm");
+
+        claw = hardwareMap.get(Servo.class, "claw");
 
         frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -39,6 +54,11 @@ public class RedAuto extends LinearOpMode {
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        leftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
         frontRight.setDirection(DcMotor.Direction.FORWARD);
@@ -46,12 +66,18 @@ public class RedAuto extends LinearOpMode {
 
         waitForStart();
 
-        //encoderWheelDrive(DRIVE_SPEED, 35.25, 35.25, 35.25, 35.25);
-        //encoderWheelDrive(DRIVE_SPEED, 23.5, -23.5, -23.5,23.5);
+        claw.setPosition(CLAWCLOSE);
+        //forward
+        encoderWheelDrive(DRIVE_SPEED, 35.25, 35.25, 35.25, 35.25);
 
-        //if red color sensor value is highest - ZONE 1
+        //lift up arm
+        encoderArmandSensor(0.3,10,40,40);
 
-        if (sensor.red() >= 700)
+        /*
+        //sensor colors
+        runtime.reset();
+        sensor.enableLed(true);
+        if (sensor.red() >= 700) //<-- might not need this  //ZONE 1
         {
             if (sensor.red() > sensor.blue() && sensor.red() > sensor.green())
             {
@@ -61,11 +87,7 @@ public class RedAuto extends LinearOpMode {
             }
 
         }
-
-
-        //if green color sensor value is highest - ZONE 2
-
-        else if (sensor.green() >= 700)
+        else if (sensor.green() >= 700) //ZONE 2
         {
             if (sensor.green() > sensor.blue() && sensor.green() > sensor.red())
             {
@@ -73,10 +95,7 @@ public class RedAuto extends LinearOpMode {
                 encoderWheelDrive(DRIVE_SPEED, 47, 47, 47, 47);
             }
         }
-
-        //if blue color sensor value is highest - ZONE 3
-
-        else if (sensor.blue() >= 700)
+        else if (sensor.blue() >= 700) //ZONE 3
         {
             if (sensor.blue() > sensor.red() && sensor.blue() > sensor.green())
             {
@@ -85,6 +104,10 @@ public class RedAuto extends LinearOpMode {
                 encoderWheelDrive(DRIVE_SPEED, 23.5, -23.5, -23.5, 23.5);
             }
         }
+        sensor.enableLed(false);
+
+        */
+
     }
 
     public void encoderWheelDrive(double speed,
@@ -137,4 +160,80 @@ public class RedAuto extends LinearOpMode {
 
         //  sleep(250);   // pause after each move
     }
+
+    public void encoderArmandSensor(double speed, double openInches, double holdTime, double closeTime){
+        int openTarget1;
+        int openTarget2;
+
+
+        // Determine new OPEN target position, and pass to motor controller
+        openTarget1 = leftArm.getCurrentPosition() + (int) (openInches * COUNTS_PER_INCH);
+        openTarget2 = rightArm.getCurrentPosition() + (int) (openInches * COUNTS_PER_INCH);
+
+        //opens arm
+        leftArm.setTargetPosition(openTarget1);
+        rightArm.setTargetPosition(openTarget2);
+
+        leftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        leftArm.setPower(speed);
+        rightArm.setPower(speed);
+
+        while(leftArm.isBusy() && rightArm.isBusy());
+        leftArm.setPower(0); //MIGHT NEED TO DELETE
+        rightArm.setPower(0);
+
+        // Turn off RUN_TO_POSITION
+        leftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        //HOLDS arm
+        runtime.reset();
+        while (runtime.seconds() < holdTime){
+            rightArm.setPower(0.005);
+            leftArm.setPower(-0.005);
+            telemetry.addData("Red", sensor.red());
+            telemetry.addData("Blue", sensor.blue());
+            telemetry.addData("Green", sensor.green());
+            telemetry.addData("Alpha", sensor.alpha());
+            telemetry.update();
+
+        }
+
+        //CLOSES ARM
+        runtime.reset();
+        while(runtime.seconds() < closeTime){
+            downtime.reset();
+            while(downtime.seconds() < 0.005){ //HOLD
+                rightArm.setPower(0.005);
+                leftArm.setPower(-0.005);
+            }
+            downtime.reset();
+            while(downtime.seconds() < 0.0001){ //FALL
+                rightArm.setPower(0);
+                leftArm.setPower(0);
+            }
+        }
+
+        leftArm.setPower(0);
+        rightArm.setPower(0);
+
+
+
+    }
+/*
+    //return rgb values color TEST
+        runtime.reset();
+        sensor.enableLed(true);
+        while(runtime.seconds() <= 30){
+        telemetry.addData("Red", sensor.red());
+        telemetry.addData("Blue", sensor.blue());
+        telemetry.addData("Green", sensor.green());
+        telemetry.addData("Alpha", sensor.alpha());
+        telemetry.update();
+    }
+        sensor.enableLed(false); */
+
+
 }
