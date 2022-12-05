@@ -93,7 +93,7 @@ public class Teleop extends LinearOpMode {
                 //leftArm.setTargetPosition(3050);
                 //encoderArm(0.75, 3050, -3050);
 
-                while(runtime.seconds() 3){
+                while(runtime.seconds()){
 
                 }
 
