@@ -18,9 +18,7 @@ public class ColorSensorTest extends LinearOpMode {
 
         while (opModeIsActive()) {
             telemetry.addData("Red", sensor.red());
-            //telemetry.update();
             telemetry.addData("Blue", sensor.blue());
-            //telemetry.update();
             telemetry.addData("Green", sensor.green());
             telemetry.update();
         }
