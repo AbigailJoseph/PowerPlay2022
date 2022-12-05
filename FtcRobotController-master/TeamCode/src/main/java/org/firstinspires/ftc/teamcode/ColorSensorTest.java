@@ -17,10 +17,16 @@ public class ColorSensorTest extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+
+            sensor.enableLed(true);
             telemetry.addData("Red", sensor.red());
             telemetry.addData("Blue", sensor.blue());
             telemetry.addData("Green", sensor.green());
             telemetry.update();
+        }
+
+        if(sensor.red() > sensor.blue() && sensor.red() > sensor.green() ){
+            telemetry.addData("ris greatest", sensor.red());
         }
     }
 }

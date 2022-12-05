@@ -143,13 +143,13 @@ public class Teleop extends LinearOpMode {
 
             // ARM TEST(button x & y)
             if(gamepad2.y){ //up
-                rightArm.setPower(0.1); // CHECK SPEED
-                leftArm.setPower(-0.1);
+                rightArm.setPower(0.15); // CHECK SPEED
+                leftArm.setPower(-0.3);
 
             }
             else if(gamepad2.x){  // stops at position
-                rightArm.setPower(0.0001); //OPPOSITE DIRECTION AT LOW SPEED
-                leftArm.setPower(0.0001);
+                rightArm.setPower(0.0005);
+                leftArm.setPower(-0.0005);
                 /*
                 rightArm.setPower(0.005); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
                 leftArm.setPower(-0.005);
@@ -169,8 +169,8 @@ public class Teleop extends LinearOpMode {
 
             }
             else{ //KEEP AT POSITION WHEN NO BUTTON PRESSED
-                rightArm.setPower(0.005); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
-                leftArm.setPower(-0.005);
+                rightArm.setPower(0); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
+                leftArm.setPower(0);
 
                 //OR
                 /*
