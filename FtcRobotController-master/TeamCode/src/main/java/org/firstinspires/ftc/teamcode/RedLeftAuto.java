@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="RedAuto")
-public class RedAuto extends LinearOpMode {
+@Autonomous(name="RedLeftAuto")
+public class RedLeftAuto extends LinearOpMode {
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // No External Gearing.
@@ -67,12 +67,30 @@ public class RedAuto extends LinearOpMode {
         waitForStart();
 
         claw.setPosition(CLAWCLOSE);
+        //right
+        encoderWheelDrive(DRIVE_SPEED, -35.25, 35.25, 35.25, -35.25);
+
         //forward
         encoderWheelDrive(DRIVE_SPEED, 35.25, 35.25, 35.25, 35.25);
 
         //lift up arm
-        encoderArmOpen(0.3,10,40);
+        encoderArmOpen(0.3,4.7,40);
 
+        claw.setPosition(CLAWOPEN);
+
+        //move a bit back
+        encoderWheelDrive(DRIVE_SPEED, -10, -10, -10, -10);
+
+        //close arm
+        encoderArmClose(20); //time it takes to close arm
+
+        //left
+        encoderWheelDrive(DRIVE_SPEED, 35.25, -35.25, -35.25, 35.25);
+
+        //forward
+        encoderWheelDrive(DRIVE_SPEED, 35.25, 35.25, 35.25, 35.25);
+
+        //in front of the cone
         //returns color values when arm is up
         telemetry.addData("Red", sensor.red());
         telemetry.addData("Blue", sensor.blue());
@@ -80,9 +98,7 @@ public class RedAuto extends LinearOpMode {
         telemetry.addData("Alpha", sensor.alpha());
         telemetry.update();
 
-        encoderArmClose(20); //time it takes to close arm
 
-        /*
         //sensor colors
         runtime.reset();
         sensor.enableLed(true);
@@ -90,8 +106,7 @@ public class RedAuto extends LinearOpMode {
         {
             if (sensor.red() > sensor.blue() && sensor.red() > sensor.green())
             {
-                // movement straight by 2 tiles and left by 1 tile
-                encoderWheelDrive(DRIVE_SPEED, 47, 47, 47, 47);
+                // movement left by 1 tile
                 encoderWheelDrive(DRIVE_SPEED, -23.5, 23.5, 23.5, -23.5);
             }
 
@@ -100,22 +115,21 @@ public class RedAuto extends LinearOpMode {
         {
             if (sensor.green() > sensor.blue() && sensor.green() > sensor.red())
             {
-                // movement straight by 2 tiles
-                encoderWheelDrive(DRIVE_SPEED, 47, 47, 47, 47);
+                // movement straight a bit
+                encoderWheelDrive(DRIVE_SPEED, 10, 10, 10, 10);
             }
         }
         else if (sensor.blue() >= 700) //ZONE 3
         {
             if (sensor.blue() > sensor.red() && sensor.blue() > sensor.green())
             {
-                // movement straight by 2 tiles and right by 1 tile
-                encoderWheelDrive(DRIVE_SPEED, 47, 47, 47, 47);
+                // movement right by 1 tile
                 encoderWheelDrive(DRIVE_SPEED, 23.5, -23.5, -23.5, 23.5);
             }
         }
         sensor.enableLed(false);
 
-        */
+
 
     }
 

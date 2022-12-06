@@ -143,47 +143,16 @@ public class Teleop extends LinearOpMode {
 
             // ARM TEST(button x & y)
             if(gamepad2.y){ //preset high height
-                while(runtime.seconds() < 0.5){
+                /*while(runtime.seconds() < 0.5){
                     rightArm.setPower(0.15); // CHECK SPEED
                     leftArm.setPower(-0.15);
-                }
+                } */
+                encoderArmUp(8);
 
 
             }
-            /*else if(gamepad2.x){  // stops at position
-                rightArm.setPower(0.0005);
-                leftArm.setPower(-0.0005);
-
-                rightArm.setPower(0.005); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
-                leftArm.setPower(-0.005);
-
-            }*/
             else if (gamepad2.x){ //down
-                runtime.reset();
-                while(runtime.seconds() < 0.2) {
-                    rightArm.setPower(-0.0005);
-                    leftArm.setPower(0.0005);
-                }
-                while(runtime.seconds() < 0.2) {
-                    rightArm.setPower(0.0001);
-                    leftArm.setPower(-0.0001);
-                }
-                while(runtime.seconds() < 0.3) {
-                    rightArm.setPower(0.0003);
-                    leftArm.setPower(-0.0003);
-                }
-                while(runtime.seconds() < 0.4) {
-                    rightArm.setPower(0.0004);
-                    leftArm.setPower(-0.0004);
-                }
-                while(runtime.seconds() < 0.4) {
-                    rightArm.setPower(0.0005);
-                    leftArm.setPower(-0.0005);
-                }
-                /*while(runtime.seconds() < 0.00005) { //FALL
-                    rightArm.setPower(-0.005);
-                    leftArm.setPower(0.005);
-                }
+
                 while(runtime.seconds() < 0.00005){ //HOLD
                     rightArm.setPower(0.005);
                     leftArm.setPower(-0.005);
@@ -192,28 +161,50 @@ public class Teleop extends LinearOpMode {
                 while(runtime.seconds() < 0.00005){ //FALL
                     rightArm.setPower(0);
                     leftArm.setPower(0);
-                }*/
+                }
+                /*
+                runtime.reset();
+                while(runtime.seconds() < 0.2) {
+                    rightArm.setPower(-0.0005);
+                    leftArm.setPower(0.0005);
+                }
+                runtime.reset();
+                while(runtime.seconds() < 0.2) {
+                    rightArm.setPower(0.0001);
+                    leftArm.setPower(-0.0001);
+                }
+                runtime.reset();
+                while(runtime.seconds() < 0.3) {
+                    rightArm.setPower(0.0003);
+                    leftArm.setPower(-0.0003);
+                }
+                runtime.reset();
+                while(runtime.seconds() < 0.4) {
+                    rightArm.setPower(0.0004);
+                    leftArm.setPower(-0.0004);
+                }
+                runtime.reset();
+                while(runtime.seconds() < 0.4) {
+                    rightArm.setPower(0.0005);
+                    leftArm.setPower(-0.0005);
+                } */
+
 
             }
+            /*
             else if (gamepad2.dpad_down){ //going fully down
                 rightArm.setPower(-0.001);
                 leftArm.setPower(0.001);
-            }
+            }*/
             else if(gamepad2.b){ //preset medium height
-                while(runtime.seconds() < 0.3){
-                    rightArm.setPower(0.15); // CHECK SPEED
-                    leftArm.setPower(-0.15);
-                }
+                encoderArmUp(6);
             }
             else if(gamepad2.a){//preset low height
-                while(runtime.seconds() < 0.1){
-                    rightArm.setPower(0.15); // CHECK SPEED
-                    leftArm.setPower(-0.15);
-                }
+                encoderArmUp(4.7);
             }
             else{ //KEEP AT POSITION WHEN NO BUTTON PRESSED
-                rightArm.setPower(0.002); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
-                leftArm.setPower(-0.002);
+                //rightArm.setPower(0.002); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
+               // leftArm.setPower(-0.002);
 
                 //OR
                 /*
@@ -276,46 +267,37 @@ public class Teleop extends LinearOpMode {
         }
     }
 
-    public void encoderArm(double speed,
-                                  double rightArmInch, double leftArmInch) {
-        int rightArmTarget;
-        int leftArmTarget;
+    public void encoderArmUp(double openInches){
+        int openTarget1;
+        int openTarget2;
 
 
-        // Determine new target position, and pass to motor controller
-        rightArmTarget = frontRight.getCurrentPosition() + (int) (rightArmInch * COUNTS_PER_INCH);
-        leftArmTarget = frontLeft.getCurrentPosition() + (int) (leftArmInch * COUNTS_PER_INCH);
+        // Determine new OPEN target position, and pass to motor controller
+        openTarget1 = leftArm.getCurrentPosition() + (int) (openInches * COUNTS_PER_INCH);
+        openTarget2 = rightArm.getCurrentPosition() + (int) (openInches * COUNTS_PER_INCH);
 
+        //opens arm
+        leftArm.setTargetPosition(-openTarget1);
+        rightArm.setTargetPosition(openTarget2);
 
-        rightArm.setTargetPosition(rightArmTarget);
-        leftArm.setTargetPosition(leftArmTarget);
-
-
-        // Turn On RUN_TO_POSITION
-        rightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
+        leftArm.setPower(0.1);
+        rightArm.setPower(0.1);
 
-        //start motion.
-        rightArm.setPower(speed);
-        leftArm.setPower(speed);
-
-
-
-        while(frontRight.isBusy() &&
-                frontLeft.isBusy() );
-
-        // Stop all motion;
-        frontRight.setPower(0);
-        frontLeft.setPower(0);
-
+        while(leftArm.isBusy() && rightArm.isBusy());
+        leftArm.setPower(0); //MIGHT NEED TO DELETE
+        rightArm.setPower(0);
 
         // Turn off RUN_TO_POSITION
-        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        //HOLD
+        rightArm.setPower(0.005);
+        leftArm.setPower(-0.005);
 
-        //  sleep(250);   // pause after each move
     }
 
 }
