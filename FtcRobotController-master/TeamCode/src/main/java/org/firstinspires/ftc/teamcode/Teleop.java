@@ -142,35 +142,78 @@ public class Teleop extends LinearOpMode {
             //                                  [GAME PAD 2]
 
             // ARM TEST(button x & y)
-            if(gamepad2.y){ //up
-                rightArm.setPower(0.15); // CHECK SPEED
-                leftArm.setPower(-0.3);
+            if(gamepad2.y){ //preset high height
+                while(runtime.seconds() < 0.5){
+                    rightArm.setPower(0.15); // CHECK SPEED
+                    leftArm.setPower(-0.15);
+                }
+
 
             }
-            else if(gamepad2.x){  // stops at position
+            /*else if(gamepad2.x){  // stops at position
                 rightArm.setPower(0.0005);
                 leftArm.setPower(-0.0005);
-                /*
+
                 rightArm.setPower(0.005); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
                 leftArm.setPower(-0.005);
-                 */
-            }
-            else if (gamepad2.a){ //down
+
+            }*/
+            else if (gamepad2.x){ //down
                 runtime.reset();
-                while(runtime.seconds() < 0.005){ //HOLD
+                while(runtime.seconds() < 0.2) {
+                    rightArm.setPower(-0.0005);
+                    leftArm.setPower(0.0005);
+                }
+                while(runtime.seconds() < 0.2) {
+                    rightArm.setPower(0.0001);
+                    leftArm.setPower(-0.0001);
+                }
+                while(runtime.seconds() < 0.3) {
+                    rightArm.setPower(0.0003);
+                    leftArm.setPower(-0.0003);
+                }
+                while(runtime.seconds() < 0.4) {
+                    rightArm.setPower(0.0004);
+                    leftArm.setPower(-0.0004);
+                }
+                while(runtime.seconds() < 0.4) {
+                    rightArm.setPower(0.0005);
+                    leftArm.setPower(-0.0005);
+                }
+                /*while(runtime.seconds() < 0.00005) { //FALL
+                    rightArm.setPower(-0.005);
+                    leftArm.setPower(0.005);
+                }
+                while(runtime.seconds() < 0.00005){ //HOLD
                     rightArm.setPower(0.005);
                     leftArm.setPower(-0.005);
                 }
                 runtime.reset();
-                while(runtime.seconds() < 0.0001){ //FALL
+                while(runtime.seconds() < 0.00005){ //FALL
                     rightArm.setPower(0);
                     leftArm.setPower(0);
-                }
+                }*/
 
             }
+            else if (gamepad2.dpad_down){ //going fully down
+                rightArm.setPower(-0.001);
+                leftArm.setPower(0.001);
+            }
+            else if(gamepad2.b){ //preset medium height
+                while(runtime.seconds() < 0.3){
+                    rightArm.setPower(0.15); // CHECK SPEED
+                    leftArm.setPower(-0.15);
+                }
+            }
+            else if(gamepad2.a){//preset low height
+                while(runtime.seconds() < 0.1){
+                    rightArm.setPower(0.15); // CHECK SPEED
+                    leftArm.setPower(-0.15);
+                }
+            }
             else{ //KEEP AT POSITION WHEN NO BUTTON PRESSED
-                rightArm.setPower(0); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
-                leftArm.setPower(0);
+                rightArm.setPower(0.002); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
+                leftArm.setPower(-0.002);
 
                 //OR
                 /*
