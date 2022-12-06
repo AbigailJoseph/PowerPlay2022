@@ -193,7 +193,7 @@ public class RedLeftAuto extends LinearOpMode {
         openTarget1 = leftArm.getCurrentPosition() + (int) (openInches * COUNTS_PER_INCH);
         openTarget2 = rightArm.getCurrentPosition() + (int) (openInches * COUNTS_PER_INCH);
 
-        //opens arm
+        //opens the arm
         leftArm.setTargetPosition(openTarget1);
         rightArm.setTargetPosition(-openTarget2);
 
