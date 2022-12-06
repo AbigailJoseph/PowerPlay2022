@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="RedRightAuto")
-public class RedRightAuto extends LinearOpMode {
+@Autonomous(name="RedAuto")
+public class RedAuto extends LinearOpMode {
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // No External Gearing.
@@ -71,16 +71,7 @@ public class RedRightAuto extends LinearOpMode {
         encoderWheelDrive(DRIVE_SPEED, 35.25, 35.25, 35.25, 35.25);
 
         //lift up arm
-        encoderArmOpen(0.3,10,40);
-
-        //returns color values when arm is up
-        telemetry.addData("Red", sensor.red());
-        telemetry.addData("Blue", sensor.blue());
-        telemetry.addData("Green", sensor.green());
-        telemetry.addData("Alpha", sensor.alpha());
-        telemetry.update();
-
-        encoderArmClose(20); //time it takes to close arm
+        encoderArmandSensor(0.3,10,40,40);
 
         /*
         //sensor colors
@@ -170,7 +161,7 @@ public class RedRightAuto extends LinearOpMode {
         //  sleep(250);   // pause after each move
     }
 
-    public void encoderArmOpen(double speed, double openInches, double holdTime){
+    public void encoderArmandSensor(double speed, double openInches, double holdTime, double closeTime){
         int openTarget1;
         int openTarget2;
 
@@ -179,8 +170,8 @@ public class RedRightAuto extends LinearOpMode {
         openTarget1 = leftArm.getCurrentPosition() + (int) (openInches * COUNTS_PER_INCH);
         openTarget2 = rightArm.getCurrentPosition() + (int) (openInches * COUNTS_PER_INCH);
 
-        //opens arm
-        leftArm.setTargetPosition(-openTarget1);
+        //opens the arm
+        leftArm.setTargetPosition(openTarget1);
         rightArm.setTargetPosition(openTarget2);
 
         leftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -202,11 +193,14 @@ public class RedRightAuto extends LinearOpMode {
         while (runtime.seconds() < holdTime){
             rightArm.setPower(0.005);
             leftArm.setPower(-0.005);
+            telemetry.addData("Red", sensor.red());
+            telemetry.addData("Blue", sensor.blue());
+            telemetry.addData("Green", sensor.green());
+            telemetry.addData("Alpha", sensor.alpha());
+            telemetry.update();
+
         }
 
-    }
-
-    public void encoderArmClose(double closeTime){
         //CLOSES ARM
         runtime.reset();
         while(runtime.seconds() < closeTime){
@@ -224,6 +218,9 @@ public class RedRightAuto extends LinearOpMode {
 
         leftArm.setPower(0);
         rightArm.setPower(0);
+
+
+
     }
 /*
     //return rgb values color TEST
