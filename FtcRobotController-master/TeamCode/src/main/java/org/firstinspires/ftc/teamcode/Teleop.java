@@ -143,7 +143,6 @@ public class Teleop extends LinearOpMode {
 
             // ARM TEST(button x & y)
             if(gamepad2.y){ //preset high height
-                runtime.reset();
                 while(runtime.seconds() < 0.5){
                     rightArm.setPower(0.15); // CHECK SPEED
                     leftArm.setPower(-0.15);
@@ -165,22 +164,18 @@ public class Teleop extends LinearOpMode {
                     rightArm.setPower(-0.0005);
                     leftArm.setPower(0.0005);
                 }
-                runtime.reset();
                 while(runtime.seconds() < 0.2) {
                     rightArm.setPower(0.0001);
                     leftArm.setPower(-0.0001);
                 }
-                runtime.reset();
                 while(runtime.seconds() < 0.3) {
                     rightArm.setPower(0.0003);
                     leftArm.setPower(-0.0003);
                 }
-                runtime.reset();
                 while(runtime.seconds() < 0.4) {
                     rightArm.setPower(0.0004);
                     leftArm.setPower(-0.0004);
                 }
-                runtime.reset();
                 while(runtime.seconds() < 0.4) {
                     rightArm.setPower(0.0005);
                     leftArm.setPower(-0.0005);
@@ -205,14 +200,12 @@ public class Teleop extends LinearOpMode {
                 leftArm.setPower(0.001);
             }
             else if(gamepad2.b){ //preset medium height
-                runtime.reset();
                 while(runtime.seconds() < 0.3){
                     rightArm.setPower(0.15); // CHECK SPEED
                     leftArm.setPower(-0.15);
                 }
             }
             else if(gamepad2.a){//preset low height
-                runtime.reset();
                 while(runtime.seconds() < 0.1){
                     rightArm.setPower(0.15); // CHECK SPEED
                     leftArm.setPower(-0.15);
@@ -276,7 +269,7 @@ public class Teleop extends LinearOpMode {
             else if(gamepad2.right_bumper){ //open
                 clawPosition = CLAWOPEN;
             }
-            clawPosition = Range.clip(clawPosition, -1.0, 1.0);
+            //clawPosition = Range.clip(clawPosition, -1.0, 1.0);
             claw.setPosition(clawPosition);
             telemetry.addData("Servo Position: ", clawPosition);
             telemetry.update();
