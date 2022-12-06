@@ -71,7 +71,16 @@ public class RedAuto extends LinearOpMode {
         encoderWheelDrive(DRIVE_SPEED, 35.25, 35.25, 35.25, 35.25);
 
         //lift up arm
-        encoderArmandSensor(0.3,10,40,40);
+        encoderArmOpen(0.3,10,40);
+
+        //returns color values when arm is up
+        telemetry.addData("Red", sensor.red());
+        telemetry.addData("Blue", sensor.blue());
+        telemetry.addData("Green", sensor.green());
+        telemetry.addData("Alpha", sensor.alpha());
+        telemetry.update();
+
+        encoderArmClose(20); //time it takes to close arm
 
         /*
         //sensor colors
@@ -161,7 +170,7 @@ public class RedAuto extends LinearOpMode {
         //  sleep(250);   // pause after each move
     }
 
-    public void encoderArmandSensor(double speed, double openInches, double holdTime, double closeTime){
+    public void encoderArmOpen(double speed, double openInches, double holdTime){
         int openTarget1;
         int openTarget2;
 
@@ -193,14 +202,11 @@ public class RedAuto extends LinearOpMode {
         while (runtime.seconds() < holdTime){
             rightArm.setPower(0.005);
             leftArm.setPower(-0.005);
-            telemetry.addData("Red", sensor.red());
-            telemetry.addData("Blue", sensor.blue());
-            telemetry.addData("Green", sensor.green());
-            telemetry.addData("Alpha", sensor.alpha());
-            telemetry.update();
-
         }
 
+    }
+
+    public void encoderArmClose(double closeTime){
         //CLOSES ARM
         runtime.reset();
         while(runtime.seconds() < closeTime){
@@ -218,9 +224,6 @@ public class RedAuto extends LinearOpMode {
 
         leftArm.setPower(0);
         rightArm.setPower(0);
-
-
-
     }
 /*
     //return rgb values color TEST

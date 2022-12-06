@@ -107,9 +107,9 @@ public class Teleop extends LinearOpMode {
 
             }
             if (gamepad1.right_stick_y < -0.3) { //backward
-                frontLeft.setPower(0.8);
+                frontLeft.setPower(-0.8);
                 frontRight.setPower(-0.8);
-                backLeft.setPower(0.8);
+                backLeft.setPower(-0.8);
                 backRight.setPower(-0.8);
             }
             if (gamepad1.right_stick_x > 0.3) { //right
