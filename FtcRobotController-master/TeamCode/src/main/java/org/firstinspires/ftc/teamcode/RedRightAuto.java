@@ -180,7 +180,7 @@ public class RedRightAuto extends LinearOpMode {
         openTarget2 = rightArm.getCurrentPosition() + (int) (openInches * COUNTS_PER_INCH);
 
         //opens arm
-        leftArm.setTargetPosition(openTarget1);
+        leftArm.setTargetPosition(-openTarget1);
         rightArm.setTargetPosition(openTarget2);
 
         leftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);

@@ -68,10 +68,10 @@ public class RedLeftAuto extends LinearOpMode {
 
         claw.setPosition(CLAWCLOSE);
         //right
-        encoderWheelDrive(DRIVE_SPEED, -35.25, 35.25, 35.25, -35.25);
+        encoderWheelDrive(DRIVE_SPEED, -15, 15, 15, -15);
 
         //forward
-        encoderWheelDrive(DRIVE_SPEED, 35.25, 35.25, 35.25, 35.25);
+        encoderWheelDrive(DRIVE_SPEED, 15, 15, 15, 15);
 
         //lift up arm
         encoderArmOpen(0.3,4.7,40);
@@ -195,7 +195,7 @@ public class RedLeftAuto extends LinearOpMode {
 
         //opens arm
         leftArm.setTargetPosition(openTarget1);
-        rightArm.setTargetPosition(openTarget2);
+        rightArm.setTargetPosition(-openTarget2);
 
         leftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
