@@ -197,7 +197,7 @@ public class Teleop extends LinearOpMode {
             }
             else if (gamepad2.dpad_down){ //going fully down
                 rightArm.setPower(-0.001);
-                leftArm.setPower(0.001);
+                leftArm.setPower(0.002);
             }
             else if(gamepad2.b){ //preset medium height
                 while(runtime.seconds() < 0.3){
