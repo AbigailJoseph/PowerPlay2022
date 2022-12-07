@@ -74,7 +74,7 @@ public class RedLeftAuto extends LinearOpMode {
         //encoderWheelDrive(DRIVE_SPEED, 5, 5, 5, 5);
 
         //lift up arm
-        encoderArmOpen(0.3,4.7,120);
+        encoderArmOpen(0.7,4.7,40);
 
         claw.setPosition(CLAWOPEN);
 
@@ -82,7 +82,7 @@ public class RedLeftAuto extends LinearOpMode {
         encoderWheelDrive(DRIVE_SPEED, -10, -10, -10, -10);
 
         //close arm
-        encoderArmClose(20); //time it takes to close arm
+        //encoderArmClose(20); //time it takes to close arm
 
         //left
         encoderWheelDrive(DRIVE_SPEED, 35.25, -35.25, -35.25, 35.25);
@@ -194,8 +194,8 @@ public class RedLeftAuto extends LinearOpMode {
         openTarget2 = rightArm.getCurrentPosition() + (int) (openInches * COUNTS_PER_INCH);
 
         //opens the arm
-        leftArm.setTargetPosition(openTarget1);
-        rightArm.setTargetPosition(-openTarget2);
+        leftArm.setTargetPosition(-openTarget1);
+        rightArm.setTargetPosition(openTarget2);
 
         leftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -203,9 +203,9 @@ public class RedLeftAuto extends LinearOpMode {
         leftArm.setPower(speed);
         rightArm.setPower(speed);
 
-        while(leftArm.isBusy() && rightArm.isBusy());
+        /*while(leftArm.isBusy() && rightArm.isBusy());
         leftArm.setPower(0); //MIGHT NEED TO DELETE
-        rightArm.setPower(0);
+        rightArm.setPower(0);*/
 
         // Turn off RUN_TO_POSITION
         leftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
