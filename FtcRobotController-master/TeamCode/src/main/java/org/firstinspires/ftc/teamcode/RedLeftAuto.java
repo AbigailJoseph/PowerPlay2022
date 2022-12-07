@@ -68,13 +68,13 @@ public class RedLeftAuto extends LinearOpMode {
 
         claw.setPosition(CLAWCLOSE);
         //right
-        encoderWheelDrive(DRIVE_SPEED, -15, 15, 15, -15);
+        //encoderWheelDrive(DRIVE_SPEED, -10, 10, 10, -10);
 
         //forward
-        encoderWheelDrive(DRIVE_SPEED, 15, 15, 15, 15);
+        //encoderWheelDrive(DRIVE_SPEED, 5, 5, 5, 5);
 
         //lift up arm
-        encoderArmOpen(0.3,4.7,40);
+        encoderArmOpen(0.3,4.7,120);
 
         claw.setPosition(CLAWOPEN);
 

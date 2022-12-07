@@ -6,17 +6,16 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
 @Autonomous(name="RedRightAuto")
 public class RedRightAuto extends LinearOpMode {
 
-    static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
-    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // No External Gearing.
-    static final double     WHEEL_DIAMETER_INCHES   = 3.85827;     // For figuring circumference
-    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+    static final double COUNTS_PER_MOTOR_REV = 1440;    // eg: TETRIX Motor Encoder
+    static final double DRIVE_GEAR_REDUCTION = 1.0;     // No External Gearing.
+    static final double WHEEL_DIAMETER_INCHES = 3.85827;     // For figuring circumference
+    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 0.6;
-    static final double     TURN_SPEED              = 0.5;
+    static final double DRIVE_SPEED = 0.6;
+    static final double TURN_SPEED = 0.5;
 
     public DcMotor frontRight;
     public DcMotor backRight;
@@ -32,9 +31,9 @@ public class RedRightAuto extends LinearOpMode {
     static final double CLAWCLOSE = 0.1999;
     static final double CLAWOPEN = 0.9;
 
-    public void runOpMode(){
-        frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");//need to rename
-        backLeft  = hardwareMap.get(DcMotor.class, "backLeft");
+    public void runOpMode() {
+        frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");//need to rename
+        backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         sensor = hardwareMap.get(ColorSensor.class, "sensor");
@@ -67,11 +66,11 @@ public class RedRightAuto extends LinearOpMode {
         waitForStart();
 
         claw.setPosition(CLAWCLOSE);
-        //forward
-        encoderWheelDrive(DRIVE_SPEED, 35.25, 35.25, 35.25, 35.25);
+        //strafe right
+        encoderWheelDrive(DRIVE_SPEED, -20, 20, 20, -20);
 
         //lift up arm
-        encoderArmOpen(0.3,10,40);
+        encoderArmOpen(0.3, 10, 40);
 
         //returns color values when arm is up
         telemetry.addData("Red", sensor.red());
@@ -151,9 +150,9 @@ public class RedRightAuto extends LinearOpMode {
         backLeft.setPower(speed);
 
 
-        while(frontRight.isBusy() &&
-                frontLeft.isBusy() &&  backLeft.isBusy()
-                && backRight.isBusy());
+        while (frontRight.isBusy() &&
+                frontLeft.isBusy() && backLeft.isBusy()
+                && backRight.isBusy()) ;
 
         // Stop all motion;
         frontRight.setPower(0);
@@ -170,7 +169,7 @@ public class RedRightAuto extends LinearOpMode {
         //  sleep(250);   // pause after each move
     }
 
-    public void encoderArmOpen(double speed, double openInches, double holdTime){
+    public void encoderArmOpen(double speed, double openInches, double holdTime) {
         int openTarget1;
         int openTarget2;
 
@@ -189,7 +188,7 @@ public class RedRightAuto extends LinearOpMode {
         leftArm.setPower(speed);
         rightArm.setPower(speed);
 
-        while(leftArm.isBusy() && rightArm.isBusy());
+        while (leftArm.isBusy() && rightArm.isBusy()) ;
         leftArm.setPower(0); //MIGHT NEED TO DELETE
         rightArm.setPower(0);
 
@@ -212,16 +211,16 @@ public class RedRightAuto extends LinearOpMode {
     }
 
     //CLOSES ARM
-    public void encoderArmClose(double closeTime){
+    public void encoderArmClose(double closeTime) {
         runtime.reset();
-        while(runtime.seconds() < closeTime){
+        while (runtime.seconds() < closeTime) {
             downtime.reset();
-            while(downtime.seconds() < 0.005){ //HOLD
+            while (downtime.seconds() < 0.005) { //HOLD
                 rightArm.setPower(0.005);
                 leftArm.setPower(-0.005);
             }
             downtime.reset();
-            while(downtime.seconds() < 0.0001){ //FALL
+            while (downtime.seconds() < 0.0001) { //FALL
                 rightArm.setPower(0);
                 leftArm.setPower(0);
             }
@@ -229,7 +228,6 @@ public class RedRightAuto extends LinearOpMode {
 
         leftArm.setPower(0);
         rightArm.setPower(0);
-
 
 
     }
@@ -245,6 +243,4 @@ public class RedRightAuto extends LinearOpMode {
         telemetry.update();
     }
         sensor.enableLed(false); */
-
-
 }
