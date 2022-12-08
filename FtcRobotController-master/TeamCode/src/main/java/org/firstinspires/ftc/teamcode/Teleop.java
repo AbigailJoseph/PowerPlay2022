@@ -31,8 +31,8 @@ public class Teleop extends LinearOpMode {
     static final double     TURN_SPEED              = 0.5;
 
     //FILL THESE IN
-    static final double CLAWCLOSE = 0.1999;
-    static final double CLAWOPEN = 0.9;
+    private final double CLAWCLOSE = 0.1999;
+    private final double CLAWOPEN = 0.9;
 
     @Override
     public void runOpMode(){
@@ -279,6 +279,9 @@ public class Teleop extends LinearOpMode {
         }
     }
 
+    /*public void clawOpen (double ) {
+        claw.setPosition(CLAWOPEN);
+    }*/
     public void encoderArmUp(double openInches) {
         int openTarget1;
         int openTarget2;
