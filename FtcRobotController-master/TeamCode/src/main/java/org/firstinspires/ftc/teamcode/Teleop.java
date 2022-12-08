@@ -159,18 +159,23 @@ public class Teleop extends LinearOpMode {
                     rightArm.setPower(-0.0005);
                     leftArm.setPower(0.0005);
                 }
+                runtime.reset();
                 while(runtime.seconds() < 0.2) {
                     rightArm.setPower(0.0001);
                     leftArm.setPower(-0.0001);
                 }
+                runtime.reset();
                 while(runtime.seconds() < 0.3) {
                     rightArm.setPower(0.0003);
                     leftArm.setPower(-0.0003);
                 }
+                runtime.reset();
                 while(runtime.seconds() < 0.4) {
                     rightArm.setPower(0.0004);
                     leftArm.setPower(-0.0004);
                 }
+                runtime.reset();
+
                 while(runtime.seconds() < 0.4) {
                     rightArm.setPower(0.0005);
                     leftArm.setPower(-0.0005);
@@ -198,7 +203,7 @@ public class Teleop extends LinearOpMode {
                 encoderArmUp(6);
             }
             else if(gamepad2.a){//preset low height
-                encoderArmUp(4.7);
+                encoderArmUp(5);
             }
             else{ //KEEP AT POSITION WHEN NO BUTTON PRESSED
                 rightArm.setPower(0.002); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
@@ -253,12 +258,12 @@ public class Teleop extends LinearOpMode {
 
             //CLAW(bumpers)
             if(gamepad2.left_bumper){ //close
-                clawPosition = CLAWCLOSE;
+                clawPosition += 0.1;
             }
             else if(gamepad2.right_bumper){ //open
-                clawPosition = CLAWOPEN;
+                clawPosition -= 0.1;
             }
-            //clawPosition = Range.clip(clawPosition, -1.0, 1.0);
+            clawPosition = Range.clip(clawPosition, -1.0, 1.0);
             claw.setPosition(clawPosition);
             telemetry.addData("Servo Position: ", clawPosition);
             telemetry.update();
