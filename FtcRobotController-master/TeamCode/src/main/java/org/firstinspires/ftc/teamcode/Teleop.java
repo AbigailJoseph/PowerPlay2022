@@ -262,13 +262,15 @@ public class Teleop extends LinearOpMode {
             if(gamepad2.left_bumper){ //close
                 //clawPosition += 0.1;
                 //claw.setPosition(0.5);
-                claw.setPosition(-CLAWOPEN);
+                //claw.setPosition(-CLAWOPEN);
+                clawOpenorCLose(true);
 
             }
             else if(gamepad2.right_bumper){ //open
                 //clawPosition -= 0.1;
                 //claw.setPosition(-0.5);
-                claw.setPosition(CLAWOPEN);
+                //claw.setPosition(CLAWOPEN);
+                clawOpenorCLose(false);
 
             }
             //claw.setPosition(clawPosition);
@@ -279,9 +281,13 @@ public class Teleop extends LinearOpMode {
         }
     }
 
-    /*public void clawOpen (double ) {
-        claw.setPosition(CLAWOPEN);
-    }*/
+    public void clawOpenorCLose (boolean closed) {
+
+        if (!closed)
+            claw.setPosition(CLAWCLOSE);
+        else
+            claw.setPosition(CLAWOPEN);
+    }
     public void encoderArmUp(double openInches) {
         int openTarget1;
         int openTarget2;
