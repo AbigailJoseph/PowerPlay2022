@@ -262,7 +262,7 @@ public class Teleop extends LinearOpMode {
             telemetry.addData("Servo Position: ", clawPosition);
             telemetry.update(); */
 
-            //CLAW(bumbers)
+            //CLAW(bumpers)
             if(gamepad2.left_bumper){ //close
                 clawPosition = CLAWCLOSE;
             }
