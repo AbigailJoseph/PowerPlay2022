@@ -32,7 +32,7 @@ public class Teleop extends LinearOpMode {
 
     //FILL THESE IN
     private final double CLAWCLOSE = -1.0;
-    private final double CLAWOPEN = 0.9;
+    private final double CLAWOPEN = 1.0;
 
     @Override
     public void runOpMode(){
@@ -262,7 +262,7 @@ public class Teleop extends LinearOpMode {
             if(gamepad2.left_bumper){ //close
                 //clawPosition += 0.1;
                 //claw.setPosition(0.5);
-                claw.setPosition(CLAWCLOSE);
+                claw.setPosition(-CLAWOPEN);
 
             }
             else if(gamepad2.right_bumper){ //open
