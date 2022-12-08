@@ -31,7 +31,7 @@ public class Teleop extends LinearOpMode {
     static final double     TURN_SPEED              = 0.5;
 
     //FILL THESE IN
-    private final double CLAWCLOSE = 0.1999;
+    private final double CLAWCLOSE = -0.9;
     private final double CLAWOPEN = 0.9;
 
     @Override
