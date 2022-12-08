@@ -266,6 +266,7 @@ public class Teleop extends LinearOpMode {
             clawPosition = Range.clip(clawPosition, -1.0, 1.0);
             claw.setPosition(clawPosition);
             telemetry.addData("Servo Position: ", clawPosition);
+            telemetry.addData("Claw Position: ", claw.getPosition());
             telemetry.update();
         }
     }
