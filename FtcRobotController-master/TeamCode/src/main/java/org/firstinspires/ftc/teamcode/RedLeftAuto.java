@@ -76,19 +76,19 @@ public class RedLeftAuto extends LinearOpMode {
         //lift up arm
         encoderArmOpen(0.7,4.7,40);
 
-        claw.setPosition(CLAWOPEN);
+        //claw.setPosition(CLAWOPEN);
 
         //move a bit back
-        encoderWheelDrive(DRIVE_SPEED, -10, -10, -10, -10);
+        //encoderWheelDrive(DRIVE_SPEED, -10, -10, -10, -10);
 
         //close arm
         //encoderArmClose(20); //time it takes to close arm
 
         //left
-        encoderWheelDrive(DRIVE_SPEED, 35.25, -35.25, -35.25, 35.25);
+        //encoderWheelDrive(DRIVE_SPEED, 35.25, -35.25, -35.25, 35.25);
 
         //forward
-        encoderWheelDrive(DRIVE_SPEED, 35.25, 35.25, 35.25, 35.25);
+        //encoderWheelDrive(DRIVE_SPEED, 35.25, 35.25, 35.25, 35.25);
 
         //in front of the cone
         //returns color values when arm is up
