@@ -256,16 +256,23 @@ public class Teleop extends LinearOpMode {
             telemetry.addData("Servo Position: ", clawPosition);
             telemetry.update(); */
 
+            clawPosition = Range.clip(clawPosition, -1.0, 1.0);
+
             //CLAW(bumpers)
             if(gamepad2.left_bumper){ //close
-                clawPosition += 0.1;
+                //clawPosition += 0.1;
+                claw.setPosition(0.5);
+                claw.setPosition(clawPosition);
+
             }
             else if(gamepad2.right_bumper){ //open
-                clawPosition -= 0.1;
+                //clawPosition -= 0.1;
+                claw.setPosition(-0.5);
+                claw.setPosition(clawPosition);
+
             }
-            clawPosition = Range.clip(clawPosition, -1.0, 1.0);
             claw.setPosition(clawPosition);
-            telemetry.addData("Servo Position: ", clawPosition);
+            //telemetry.addData("Servo Position: ", clawPosition);
             telemetry.addData("Claw Position: ", claw.getPosition());
             telemetry.update();
         }
