@@ -37,9 +37,9 @@ public class Teleop extends LinearOpMode {
     private final double CLAWOPEN = 1.0;
 
     @Override
-    public void runOpMode(){
-        frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
-        backLeft  = hardwareMap.get(DcMotor.class, "backLeft");
+    public void runOpMode() {
+        frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
+        backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         rightArm = hardwareMap.get(DcMotor.class, "rightArm");
@@ -70,7 +70,7 @@ public class Teleop extends LinearOpMode {
         waitForStart();
         runtime.reset(); //resets the
 
-        while(opModeIsActive()){
+        while (opModeIsActive()) {
 
             //                                   [GAME PAD 1]
             double speed;
@@ -82,248 +82,118 @@ public class Teleop extends LinearOpMode {
             turn = gamepad1.left_stick_x;
 
             // WHEEL MOVEMENT(left stick) & ROTATION(right stick)
-            frontLeft.setPower(speed+turn+strafe);
-            frontRight.setPower(speed-turn-strafe);
-            backLeft.setPower(speed+turn-strafe);
-            backRight.setPower(speed-turn+strafe);
-
-            //ALTERNATE WHEEL CODE
-            /*
-            if (gamepad1.right_stick_y > -0.3 && gamepad1.right_stick_y < 0.3) { //buffer zone
-                frontLeft.setPower(0);
-                frontRight.setPower(0);
-                backLeft.setPower(0);
-                backRight.setPower(0);
-            }
-            if (gamepad1.right_stick_x > -0.3 && gamepad1.right_stick_x < 0.3) { //buffer zone
-                frontLeft.setPower(0);
-                frontRight.setPower(0);
-                backLeft.setPower(0);
-                backRight.setPower(0);
-            }
-            if (gamepad1.right_stick_y > 0.3) { //forward
-                frontLeft.setPower(0.8);
-                frontRight.setPower(0.8);
-                backLeft.setPower(0.8);
-                backRight.setPower(0.8);
-
-            }
-            if (gamepad1.right_stick_y < -0.3) { //backward
-                frontLeft.setPower(0.8);
-                frontRight.setPower(-0.8);
-                backLeft.setPower(0.8);
-                backRight.setPower(-0.8);
-            }
-            if (gamepad1.right_stick_x > 0.3) { //right
-                frontLeft.setPower(0.8);
-                frontRight.setPower(-0.8);
-                backLeft.setPower(-0.8);
-                backRight.setPower(0.8);
-            }
-            if (gamepad1.right_stick_x < -0.3) { //left
-                frontLeft.setPower(-0.8);
-                frontRight.setPower(0.8);
-                backLeft.setPower(0.8);
-                backRight.setPower(-0.8);
-            }
-            if (gamepad1.left_stick_x < -0.3) { //rotate left
-                frontLeft.setPower(-0.8);
-                frontRight.setPower(0.8);
-                backLeft.setPower(-0.8);
-                backRight.setPower(0.8);
-            }
-            if (gamepad1.left_stick_x > -0.3) { //rotate right
-                frontLeft.setPower(0.8);
-                frontRight.setPower(-0.8);
-                backLeft.setPower(0.8);
-                backRight.setPower(-0.8);;
-            }
-
-             */
+            frontLeft.setPower(speed + turn + strafe);
+            frontRight.setPower(speed - turn - strafe);
+            backLeft.setPower(speed + turn - strafe);
+            backRight.setPower(speed - turn + strafe);
 
             //                                  [GAME PAD 2]
 
-            // ARM TEST(button x & y)
-            if(gamepad2.y){ //preset high height
-                encoderArmUp(13);
+
+            if (gamepad2.left_bumper) { //OPEN
+                claw.setPosition(0);
+
+            } else if (gamepad2.right_bumper) { //CLOSE
+                claw.setPosition(1);
+                telemetry.addData("Servo Position", clawPosition);
+                telemetry.update();
             }
-            /*else if(gamepad2.x){  // stops at position
-                rightArm.setPower(0.0005);
-                leftArm.setPower(-0.0005);
 
-                rightArm.setPower(0.005); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
-                leftArm.setPower(-0.005);
 
-            }*/
-            else if (gamepad2.x){ //down
+            if (gamepad2.y) { //preset high height
+                encoderArmUp(8);
+            } else if (gamepad2.b) { //preset medium height
+                encoderArmUp(6.0);
+            } else if (gamepad2.a) {//preset low height
+                encoderArmUp(5.0);
+            } else if (gamepad2.x) { //down
                 runtime.reset();
-                /*while(runtime.seconds() < 0.2) {
+                while (runtime.seconds() < 0.1) {
                     rightArm.setPower(-0.0005);
                     leftArm.setPower(0.0005);
                 }
                 runtime.reset();
-                while(runtime.seconds() < 0.2) {
+                while (runtime.seconds() < 0.1) {
                     rightArm.setPower(0.0001);
                     leftArm.setPower(-0.0001);
                 }
                 runtime.reset();
-                while(runtime.seconds() < 0.3) {
+                while (runtime.seconds() < 0.15) {
                     rightArm.setPower(0.0003);
                     leftArm.setPower(-0.0003);
                 }
                 runtime.reset();
-                while(runtime.seconds() < 0.4) {
+                while (runtime.seconds() < 0.2) {
                     rightArm.setPower(0.0004);
                     leftArm.setPower(-0.0004);
                 }
                 runtime.reset();
-
-                while(runtime.seconds() < 0.4) {
+                while (runtime.seconds() < 0.2) {
                     rightArm.setPower(0.0005);
                     leftArm.setPower(-0.0005);
-                }*/
-
-                while(runtime.seconds() < 0.00005){ //HOLD
+                }
+            } else if (gamepad2.dpad_down) {//moving down
+                runtime.reset();
+                while (runtime.seconds() < 0.00005) {
                     rightArm.setPower(0.005);
                     leftArm.setPower(-0.005);
                 }
                 runtime.reset();
-                while(runtime.seconds() < 0.00005){ //FALL
+                while (runtime.seconds() < 0.00005) {
                     rightArm.setPower(0);
                     leftArm.setPower(0);
                 }
-
-            }
-            /*else if (gamepad2.dpad_down){ //going fully down
-                rightArm.setPower(-0.001);
-                leftArm.setPower(0.001);
-            }*/
-            else if(gamepad2.b){ //preset medium height
-                encoderArmUp(10);
-            }
-            else if(gamepad2.a){//preset low height
-                encoderArmUp(8);
-            }
-            /*else if(gamepad2.right_bumper){
-                claw.setPosition(CLAWCLOSE);
-            }
-            else if(gamepad2.left_bumper){
-                claw.setPosition(CLAWOPEN);
-            }*/
-            else{ //KEEP AT POSITION WHEN NO BUTTON PRESSED
+            } else if (gamepad2.dpad_up) {//moving up
+                rightArm.setPower(0.15);
+                leftArm.setPower(-0.1);
+            } else { //KEEP AT POSITION WHEN NO BUTTON PRESSED
                 rightArm.setPower(0.002); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
                 leftArm.setPower(-0.002);
-
-                //OR
-                /*
-                runtime.reset();
-                while(runtime.seconds() < 5 <- CHANGE VAL // NEED TO COUNT THE # OF SECONDS IT TAKES FOR ARM TO SHOOT UP ){
-                    rightArm.setPower(0.005);
-                    leftArm.setPower(-0.005);
-                }
-                runtime.reset();
-                while(runtime.seconds() < 0.001){
-                    rightArm.setPower(0.0005);
-                    leftArm.setPower(-0.0005);
-                }
-                */
             }
-            /*else{ //NO POWER WHEN NO BUTTON PRESSED
-                rightArm.setPower(0);
-                leftArm.setPower(0);
-            }*/
-
-            // ARM(right stick)
-            /*if(gamepad2.right_stick_y > 0.2){ //moves up
-                rightArm.setPower(0.85);
-                leftArm.setPower(-0.85);
-            }
-            else if(gamepad2.right_stick_y < -0.2){ //moves down
-                rightArm.setPower(-0.85);
-                leftArm.setPower(0.85);
-            }
-            else{
-                rightArm.setPower(0);
-                leftArm.setPower(0);
-            }*/
-
-            /*
-
-            // CLAW TEST(button a & b)
-            if(gamepad2.right_bumper){ //open or close
-                clawPosition += 0.01;
-            }
-            else if(gamepad2.left_bumper){ //open or close
-                clawPosition -= 0.01;
-            }
-            clawPosition = Range.clip(clawPosition, -1.0, 1.0);
-            claw.setPosition(clawPosition);
-            telemetry.addData("Servo Position: ", clawPosition);
-            telemetry.update(); */
-
-
-
-            //CLAW(bumpers)
-            if(gamepad2.left_bumper){ //OPEN
-                //clawPosition += 0;
-                //claw.setPosition(0.5);
-                claw.setPosition(0);
-
-                //claw.setPosition(-1.0);
-                //telemetry.addData("Servo Position");
-                //telemetry.update();
-
-            }
-            else if(gamepad2.right_bumper){ //CLOSE
-                //clawPosition -= 0.1;
-                //claw.setPosition(-0.5);
-                claw.setPosition(1);
-                //claw.setPosition(1.0);
-                telemetry.addData("Servo Position", clawPosition);
-                telemetry.update();
-            }
-            //claw.setPosition(clawPosition);
             clawPosition = Range.clip(clawPosition, 0.1, 1.0);
-            //telemetry.addData("Servo Position: ", clawPosition);
-            //telemetry.addData("Claw Position: ", claw.getPosition());
             telemetry.addData("Servo Position", clawPosition);
             telemetry.update();
+
         }
     }
 
-    public void encoderArmUp(double openInches) {
-        int openTarget1;
-        int openTarget2;
+        public void encoderArmUp ( double openInches){
+            int openTarget1;
+            int openTarget2;
 
 
-        // Determine new OPEN target position, and pass to motor controller
-        openTarget1 = leftArm.getCurrentPosition() + (int) (openInches * COUNTS_PER_INCH);
-        openTarget2 = rightArm.getCurrentPosition() + (int) (openInches * COUNTS_PER_INCH);
+            // Determine new OPEN target position, and pass to motor controller
+            openTarget1 = leftArm.getCurrentPosition() + (int) (openInches * COUNTS_PER_INCH);
+            openTarget2 = rightArm.getCurrentPosition() + (int) (openInches * COUNTS_PER_INCH);
 
-        //opens arm
-        leftArm.setTargetPosition(-openTarget1);
-        rightArm.setTargetPosition(openTarget2);
+            //opens arm
+            leftArm.setTargetPosition(-openTarget1);
+            rightArm.setTargetPosition(openTarget2);
 
-        // Turn On RUN_TO_POSITION
-        rightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        leftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-
-        //start motion.
-        rightArm.setPower(0.1);
-        leftArm.setPower(0.1);
-
-        while(leftArm.isBusy() && rightArm.isBusy());
-
-        leftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        //hold
-        rightArm.setPower(0.005);
-        leftArm.setPower(-0.005);
+            // Turn On RUN_TO_POSITION
+            rightArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            leftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
-        //  sleep(250);   // pause after each move
+            //start motion.
+            rightArm.setPower(0.15);
+            leftArm.setPower(0.1);
+
+            while (leftArm.isBusy() && rightArm.isBusy()) ;
+
+            leftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            rightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            //hold
+            rightArm.setPower(0.005);
+            leftArm.setPower(-0.005);
+
+
+            //  sleep(250);   // pause after each move
+        }
+
     }
 
-}
+
+
+
