@@ -126,10 +126,12 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
         sensor.enableLed(true);
         if (sensor.red() > sensor.blue() && sensor.red() > sensor.green()) // zone one
         {
-            //movement left by 1 tile
-            encoderWheelDrive(DRIVE_SPEED, 10, -10, -10, 10);
-            //movement forward by 1 tile
-            encoderWheelDrive(DRIVE_SPEED, 10, 10, 10, 10);
+            //move backward a little
+            encoderWheelDrive(DRIVE_SPEED, -5, -5, -5, -5);
+            //movement left by a 1.8 tiles
+            encoderWheelDrive(DRIVE_SPEED, 18, -18, -18, 18);
+            //movement forward by 1.5 tiles
+            encoderWheelDrive(DRIVE_SPEED, 15, 15, 15, 15);
             telemetry.addData("Red", sensor.red());
             telemetry.addData("Blue", sensor.blue());
             telemetry.addData("Green", sensor.green());
@@ -145,10 +147,12 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
             //telemetry.addData("Alpha", sensor.alpha());
         }
         else { //zone 3
-            // movement right by 1 tile
-            encoderWheelDrive(DRIVE_SPEED, -10, 10, 10, -10);
-            //movement forward by 1 tile
-            encoderWheelDrive(DRIVE_SPEED, 10, 10, 10, 10);
+            //move backward a little
+            encoderWheelDrive(DRIVE_SPEED, -5, -5, -5, -5);
+            //movement left by a 1.8 tiles
+            encoderWheelDrive(DRIVE_SPEED, -18, 18, 18, -18);
+            //movement forward by 1.5 tiles
+            encoderWheelDrive(DRIVE_SPEED, 15, 15, 15, 15);
             telemetry.addData("Red", sensor.red());
             telemetry.addData("Blue", sensor.blue());
             telemetry.addData("Green", sensor.green());
