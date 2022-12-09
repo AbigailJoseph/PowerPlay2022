@@ -110,7 +110,7 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
         //encoderWheelDrive(DRIVE_SPEED, 35.25, -35.25, -35.25, 35.25);*/
 
         //forward
-        //encoderWheelDrive(DRIVE_SPEED, 13.5, 13.5, 13.5, 13.5);
+        encoderWheelDrive(DRIVE_SPEED, 13.5, 13.5, 13.5, 13.5);
 
         //in front of the cone
         //returns color values when arm is up
