@@ -21,7 +21,7 @@ public class Teleop extends LinearOpMode {
     private DcMotor backRight = null;
     private DcMotor rightArm = null;
     private DcMotor leftArm = null;
-    private CRServo claw = null;
+    private Servo claw = null;
     private double clawPosition;
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
@@ -45,7 +45,7 @@ public class Teleop extends LinearOpMode {
         rightArm = hardwareMap.get(DcMotor.class, "rightArm");
         leftArm = hardwareMap.get(DcMotor.class, "leftArm");
 
-        claw = hardwareMap.get(CRServo.class, "claw");
+        claw = hardwareMap.get(Servo.class, "claw");
 
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -157,7 +157,7 @@ public class Teleop extends LinearOpMode {
             }*/
             else if (gamepad2.x){ //down
                 runtime.reset();
-                while(runtime.seconds() < 0.2) {
+                /*while(runtime.seconds() < 0.2) {
                     rightArm.setPower(-0.0005);
                     leftArm.setPower(0.0005);
                 }
@@ -181,11 +181,8 @@ public class Teleop extends LinearOpMode {
                 while(runtime.seconds() < 0.4) {
                     rightArm.setPower(0.0005);
                     leftArm.setPower(-0.0005);
-                }
-                /*while(runtime.seconds() < 0.00005) { //FALL
-                    rightArm.setPower(-0.005);
-                    leftArm.setPower(0.005);
-                }
+                }*/
+
                 while(runtime.seconds() < 0.00005){ //HOLD
                     rightArm.setPower(0.005);
                     leftArm.setPower(-0.005);
@@ -194,7 +191,7 @@ public class Teleop extends LinearOpMode {
                 while(runtime.seconds() < 0.00005){ //FALL
                     rightArm.setPower(0);
                     leftArm.setPower(0);
-                }*/
+                }
 
             }
             else if (gamepad2.dpad_down){ //going fully down
@@ -207,6 +204,12 @@ public class Teleop extends LinearOpMode {
             else if(gamepad2.a){//preset low height
                 encoderArmUp(5);
             }
+            /*else if(gamepad2.right_bumper){
+                claw.setPosition(CLAWCLOSE);
+            }
+            else if(gamepad2.left_bumper){
+                claw.setPosition(CLAWOPEN);
+            }*/
             else{ //KEEP AT POSITION WHEN NO BUTTON PRESSED
                 rightArm.setPower(0.002); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
                 leftArm.setPower(-0.002);
@@ -264,20 +267,25 @@ public class Teleop extends LinearOpMode {
             if(gamepad2.left_bumper){ //close
                 //clawPosition += 0.1;
                 //claw.setPosition(0.5);
-                //claw.setPosition(-CLAWOPEN);
+                claw.setPosition(CLAWCLOSE);
                 //claw.setPosition(-1.0);
+                telemetry.addData("Servo Position");
+                telemetry.update();
 
             }
             else if(gamepad2.right_bumper){ //open
                 //clawPosition -= 0.1;
                 //claw.setPosition(-0.5);
-                //claw.setPosition(CLAWOPEN);
+                claw.setPosition(CLAWOPEN);
                 //claw.setPosition(1.0);
+                telemetry.addData("Servo Position", clawPosition);
+                telemetry.update();
             }
             //claw.setPosition(clawPosition);
-            clawPosition = Range.clip(clawPosition, -1.0, 1.0);
+            clawPosition = Range.clip(clawPosition, -1.5, 1.0);
             //telemetry.addData("Servo Position: ", clawPosition);
             //telemetry.addData("Claw Position: ", claw.getPosition());
+            telemetry.addData("Servo Position", clawPosition);
             telemetry.update();
         }
     }

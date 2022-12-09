@@ -129,7 +129,7 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
             //move backward a little
             encoderWheelDrive(DRIVE_SPEED, -13.5, -13.5, -13.5, -13.5);
             //movement left by a 1 tiles
-            encoderWheelDrive(DRIVE_SPEED, 20, -20, -20, 20);
+            encoderWheelDrive(DRIVE_SPEED, 22, -22, -22, 22);
             //movement forward by 1.5 tiles
             encoderWheelDrive(DRIVE_SPEED, 30, 30, 30, 30);
             telemetry.addData("Red", sensor.red());
@@ -150,7 +150,7 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
             //move backward a little
             encoderWheelDrive(DRIVE_SPEED, -13.5, -13.5, -13.5, -13.5);
             //movement right by a 1 tile
-            encoderWheelDrive(DRIVE_SPEED, -20, 20, 20, -20);
+            encoderWheelDrive(DRIVE_SPEED, -22, 22, 22, -22);
             //movement forward by 1.5 tiles
             encoderWheelDrive(DRIVE_SPEED, 30, 30, 30, 30);
             telemetry.addData("Red", sensor.red());
