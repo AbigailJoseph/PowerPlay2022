@@ -145,7 +145,7 @@ public class Teleop extends LinearOpMode {
 
             // ARM TEST(button x & y)
             if(gamepad2.y){ //preset high height
-                encoderArmUp(8);
+                encoderArmUp(13);
             }
             /*else if(gamepad2.x){  // stops at position
                 rightArm.setPower(0.0005);
@@ -199,10 +199,10 @@ public class Teleop extends LinearOpMode {
                 leftArm.setPower(0.001);
             }*/
             else if(gamepad2.b){ //preset medium height
-                encoderArmUp(6);
+                encoderArmUp(10);
             }
             else if(gamepad2.a){//preset low height
-                encoderArmUp(5);
+                encoderArmUp(8);
             }
             /*else if(gamepad2.right_bumper){
                 claw.setPosition(CLAWCLOSE);
@@ -277,7 +277,7 @@ public class Teleop extends LinearOpMode {
             else if(gamepad2.right_bumper){ //CLOSE
                 //clawPosition -= 0.1;
                 //claw.setPosition(-0.5);
-                claw.setPosition(.9);
+                claw.setPosition(1);
                 //claw.setPosition(1.0);
                 telemetry.addData("Servo Position", clawPosition);
                 telemetry.update();
