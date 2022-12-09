@@ -33,7 +33,7 @@ public class Teleop extends LinearOpMode {
     static final double     TURN_SPEED              = 0.5;
 
     //FILL THESE IN
-    private final double CLAWCLOSE = -1.0;
+    private final double CLAWCLOSE = 0.1;
     private final double CLAWOPEN = 1.0;
 
     @Override
@@ -194,10 +194,10 @@ public class Teleop extends LinearOpMode {
                 }
 
             }
-            else if (gamepad2.dpad_down){ //going fully down
+            /*else if (gamepad2.dpad_down){ //going fully down
                 rightArm.setPower(-0.001);
                 leftArm.setPower(0.001);
-            }
+            }*/
             else if(gamepad2.b){ //preset medium height
                 encoderArmUp(6);
             }
@@ -264,25 +264,26 @@ public class Teleop extends LinearOpMode {
 
 
             //CLAW(bumpers)
-            if(gamepad2.left_bumper){ //close
-                //clawPosition += 0.1;
+            if(gamepad2.left_bumper){ //OPEN
+                //clawPosition += 0;
                 //claw.setPosition(0.5);
-                claw.setPosition(CLAWCLOSE);
+                claw.setPosition(0);
+
                 //claw.setPosition(-1.0);
-                telemetry.addData("Servo Position");
-                telemetry.update();
+                //telemetry.addData("Servo Position");
+                //telemetry.update();
 
             }
-            else if(gamepad2.right_bumper){ //open
+            else if(gamepad2.right_bumper){ //CLOSE
                 //clawPosition -= 0.1;
                 //claw.setPosition(-0.5);
-                claw.setPosition(CLAWOPEN);
+                claw.setPosition(.9);
                 //claw.setPosition(1.0);
                 telemetry.addData("Servo Position", clawPosition);
                 telemetry.update();
             }
             //claw.setPosition(clawPosition);
-            clawPosition = Range.clip(clawPosition, -1.5, 1.0);
+            clawPosition = Range.clip(clawPosition, 0.1, 1.0);
             //telemetry.addData("Servo Position: ", clawPosition);
             //telemetry.addData("Claw Position: ", claw.getPosition());
             telemetry.addData("Servo Position", clawPosition);
