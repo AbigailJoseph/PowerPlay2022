@@ -66,6 +66,19 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
 
         waitForStart();
 
+        //front
+        encoderWheelDrive(DRIVE_SPEED, 15, 15, 15, 15);
+        //right
+        encoderWheelDrive(DRIVE_SPEED, -15, 15, 15, -15);
+        //left
+        encoderWheelDrive(DRIVE_SPEED, 15, -15, -15, 15);
+        //turn right
+        encoderWheelDrive(DRIVE_SPEED, -15, 15, -15, 15);
+        //turn left
+        encoderWheelDrive(DRIVE_SPEED, 15, -15, 15, -15);
+        //back
+        encoderWheelDrive(DRIVE_SPEED, -15, -15, -15, -15);
+
         //close the arm to secure the cone
         /*claw.setPosition(CLAWCLOSE);
 
@@ -111,7 +124,7 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
         if (sensor.red() > sensor.blue() && sensor.red() > sensor.green()) // zone one
         {
             //movement left by 1 tile
-            encoderWheelDrive(DRIVE_SPEED, -10, 10, 10, -10);
+            encoderWheelDrive(DRIVE_SPEED, 10, -10, -10, 10);
             //movement forward by 1 tile
             encoderWheelDrive(DRIVE_SPEED, 10, 10, 10, 10);
             telemetry.addData("Red", sensor.red());
@@ -130,7 +143,7 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
         else if (sensor.blue() > sensor.red() && sensor.blue() > sensor.green()) // zone three
         {
             // movement right by 1 tile
-            encoderWheelDrive(DRIVE_SPEED, 10, -10, -10, 10);
+            encoderWheelDrive(DRIVE_SPEED, -10, 10, 10, -10);
             //movement forward by 1 tile
             encoderWheelDrive(DRIVE_SPEED, 10, 10, 10, 10);
             telemetry.addData("Red", sensor.red());
@@ -141,7 +154,6 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
         telemetry.addData("Red", sensor.red());
         telemetry.addData("Blue", sensor.blue());
         telemetry.addData("Green", sensor.green());
-
 
     }
 
