@@ -25,8 +25,9 @@ public class ColorSensorTest extends LinearOpMode {
             telemetry.update();
         }
 
+        /*
         if(sensor.red() > sensor.blue() && sensor.red() > sensor.green() ){
             telemetry.addData("ris greatest", sensor.red());
-        }
+        } */
     }
 }

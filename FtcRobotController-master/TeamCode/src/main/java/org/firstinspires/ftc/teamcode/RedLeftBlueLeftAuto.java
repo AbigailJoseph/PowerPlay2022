@@ -117,7 +117,7 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
         telemetry.addData("Red", sensor.red());
         telemetry.addData("Blue", sensor.blue());
         telemetry.addData("Green", sensor.green());
-        telemetry.addData("Alpha", sensor.alpha());
+        //telemetry.addData("Alpha", sensor.alpha());
         telemetry.update();
 
 
@@ -133,7 +133,7 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
             telemetry.addData("Red", sensor.red());
             telemetry.addData("Blue", sensor.blue());
             telemetry.addData("Green", sensor.green());
-            telemetry.addData("Alpha", sensor.alpha());
+            //telemetry.addData("Alpha", sensor.alpha());
         }
 
         else if (sensor.green() > sensor.blue() && sensor.green() > sensor.red()) // zone two
@@ -143,7 +143,7 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
             telemetry.addData("Red", sensor.red());
             telemetry.addData("Blue", sensor.blue());
             telemetry.addData("Green", sensor.green());
-            telemetry.addData("Alpha", sensor.alpha());
+            //telemetry.addData("Alpha", sensor.alpha());
         }
         else if (sensor.blue() > sensor.red() && sensor.blue() > sensor.green()) // zone three
         {
@@ -154,13 +154,13 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
             telemetry.addData("Red", sensor.red());
             telemetry.addData("Blue", sensor.blue());
             telemetry.addData("Green", sensor.green());
-            telemetry.addData("Alpha", sensor.alpha());
+            //telemetry.addData("Alpha", sensor.alpha());
         }
         sensor.enableLed(false);
         telemetry.addData("Red", sensor.red());
         telemetry.addData("Blue", sensor.blue());
         telemetry.addData("Green", sensor.green());
-        telemetry.addData("Alpha", sensor.alpha());
+        //telemetry.addData("Alpha", sensor.alpha());
 
     }
 
