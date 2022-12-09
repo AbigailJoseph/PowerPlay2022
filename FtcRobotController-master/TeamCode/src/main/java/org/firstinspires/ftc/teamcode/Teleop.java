@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.CRServo;
+
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -19,7 +21,7 @@ public class Teleop extends LinearOpMode {
     private DcMotor backRight = null;
     private DcMotor rightArm = null;
     private DcMotor leftArm = null;
-    private Servo claw = null;
+    private CRServo claw = null;
     private double clawPosition;
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
@@ -43,7 +45,7 @@ public class Teleop extends LinearOpMode {
         rightArm = hardwareMap.get(DcMotor.class, "rightArm");
         leftArm = hardwareMap.get(DcMotor.class, "leftArm");
 
-        claw = hardwareMap.get(Servo.class, "claw");
+        claw = hardwareMap.get(CRServo.class, "claw");
 
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -263,31 +265,23 @@ public class Teleop extends LinearOpMode {
                 //clawPosition += 0.1;
                 //claw.setPosition(0.5);
                 //claw.setPosition(-CLAWOPEN);
-                clawOpenorCLose(true);
+                //claw.setPosition(-1.0);
 
             }
             else if(gamepad2.right_bumper){ //open
                 //clawPosition -= 0.1;
                 //claw.setPosition(-0.5);
                 //claw.setPosition(CLAWOPEN);
-                clawOpenorCLose(false);
-
+                //claw.setPosition(1.0);
             }
             //claw.setPosition(clawPosition);
             clawPosition = Range.clip(clawPosition, -1.0, 1.0);
             //telemetry.addData("Servo Position: ", clawPosition);
-            telemetry.addData("Claw Position: ", claw.getPosition());
+            //telemetry.addData("Claw Position: ", claw.getPosition());
             telemetry.update();
         }
     }
 
-    public void clawOpenorCLose (boolean closed) {
-
-        if (!closed)
-            claw.setPosition(CLAWCLOSE);
-        else
-            claw.setPosition(CLAWOPEN);
-    }
     public void encoderArmUp(double openInches) {
         int openTarget1;
         int openTarget2;
