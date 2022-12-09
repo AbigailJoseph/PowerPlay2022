@@ -110,7 +110,7 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
         //encoderWheelDrive(DRIVE_SPEED, 35.25, -35.25, -35.25, 35.25);*/
 
         //forward
-        encoderWheelDrive(DRIVE_SPEED, 13.5, 13.5, 13.5, 13.5);
+        encoderWheelDrive(DRIVE_SPEED, 15.5, 15.5, 15.5, 15.5);
 
         //in front of the cone
         //returns color values when arm is up
@@ -127,11 +127,11 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
         if (sensor.red() > sensor.blue() && sensor.red() > sensor.green()) // zone one
         {
             //move backward a little
-            encoderWheelDrive(DRIVE_SPEED, -5, -5, -5, -5);
+            encoderWheelDrive(DRIVE_SPEED, -13.5, -13.5, -13.5, -13.5);
             //movement left by a 1.8 tiles
             encoderWheelDrive(DRIVE_SPEED, 18, -18, -18, 18);
             //movement forward by 1.5 tiles
-            encoderWheelDrive(DRIVE_SPEED, 15, 15, 15, 15);
+            encoderWheelDrive(DRIVE_SPEED, 25, 25, 25, 25);
             telemetry.addData("Red", sensor.red());
             telemetry.addData("Blue", sensor.blue());
             telemetry.addData("Green", sensor.green());
@@ -148,11 +148,11 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
         }
         else { //zone 3
             //move backward a little
-            encoderWheelDrive(DRIVE_SPEED, -5, -5, -5, -5);
+            encoderWheelDrive(DRIVE_SPEED, -13.5, -13.5, -13.5, -13.5);
             //movement left by a 1.8 tiles
             encoderWheelDrive(DRIVE_SPEED, -18, 18, 18, -18);
             //movement forward by 1.5 tiles
-            encoderWheelDrive(DRIVE_SPEED, 15, 15, 15, 15);
+            encoderWheelDrive(DRIVE_SPEED, 25, 25, 25, 25);
             telemetry.addData("Red", sensor.red());
             telemetry.addData("Blue", sensor.blue());
             telemetry.addData("Green", sensor.green());
