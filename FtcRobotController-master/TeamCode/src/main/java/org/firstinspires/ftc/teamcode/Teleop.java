@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-@TeleOp(name="Teleop")
+@TeleOp(name="369 Teleop")
 public class Teleop extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
@@ -151,7 +151,7 @@ public class Teleop extends LinearOpMode {
                 }
             } else if (gamepad2.dpad_up) {//moving up
                 rightArm.setPower(0.15);
-                leftArm.setPower(-0.1);
+                leftArm.setPower(-0.075);
             } else { //KEEP AT POSITION WHEN NO BUTTON PRESSED
                 rightArm.setPower(0.001); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
                 leftArm.setPower(-0.001);
