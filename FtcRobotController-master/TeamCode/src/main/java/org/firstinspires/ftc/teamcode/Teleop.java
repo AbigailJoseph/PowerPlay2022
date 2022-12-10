@@ -74,7 +74,7 @@ public class Teleop extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            //                                   [GAME PAD 1]
+            //     nn                              [GAME PAD 1]
             double speed;
             double strafe;
             double turn;
