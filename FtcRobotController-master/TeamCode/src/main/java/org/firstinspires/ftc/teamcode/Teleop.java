@@ -2,7 +2,9 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -31,7 +33,7 @@ public class Teleop extends LinearOpMode {
     static final double     TURN_SPEED              = 0.5;
 
     //FILL THESE IN
-    static final double CLAWCLOSE = 0.1999;
+    static final double CLAWCLOSE = 0.3;
     static final double CLAWOPEN = 0.9;
 
     @Override
@@ -252,15 +254,27 @@ public class Teleop extends LinearOpMode {
             telemetry.update(); */
 
             //CLAW(bumpers)
+            //claw.setDirection(Servo.Direction.FORWARD);
             if(gamepad2.left_bumper){ //close
-                clawPosition = CLAWCLOSE;
+                //clawPosition = CLAWCLOSE;
+               // claw.setDirection(CRServo.Direction.FORWARD);
+                //claw.setPower(0.5);
+                claw.setDirection(Servo.Direction.FORWARD);
+
             }
-            else if(gamepad2.right_bumper){ //open
-                clawPosition = CLAWOPEN;
+            else if(gamepad2.right_bumper) { //open
+                claw.setDirection(Servo.Direction.REVERSE);
+                //clawPosition = CLAWOPEN;
+                // claw.setDirection(CRServo.Direction.REVERSE);
+                //claw.setPower(-0.5);
             }
             //clawPosition = Range.clip(clawPosition, -1.0, 1.0);
             claw.setPosition(clawPosition);
-            telemetry.addData("Servo Position: ", clawPosition);
+            //claw.setDirection();
+            //telemetry.addData("claw power: ", claw.getPower());
+            //telemetry.addData("claw power: ", claw.getDirection());
+            telemetry.addData("Servo position: ", claw.getPosition());
+            telemetry.addData("Servo position: ", claw.getDirection());
             telemetry.update();
         }
     }
