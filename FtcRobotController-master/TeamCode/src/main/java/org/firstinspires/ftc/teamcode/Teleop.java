@@ -98,7 +98,9 @@ public class Teleop extends LinearOpMode {
                 telemetry.addData("Servo Position", clawPosition);
                 telemetry.update();
             }
-
+            clawPosition = Range.clip(clawPosition, 0.1, 1.0);
+            telemetry.addData("Servo Position", clawPosition);
+            telemetry.update();
 
             if (gamepad2.y) { //preset high height
                 encoderArmUp(8);
@@ -150,9 +152,7 @@ public class Teleop extends LinearOpMode {
                 rightArm.setPower(0.002); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
                 leftArm.setPower(-0.002);
             }
-            clawPosition = Range.clip(clawPosition, 0.1, 1.0);
-            telemetry.addData("Servo Position", clawPosition);
-            telemetry.update();
+
 
         }
     }

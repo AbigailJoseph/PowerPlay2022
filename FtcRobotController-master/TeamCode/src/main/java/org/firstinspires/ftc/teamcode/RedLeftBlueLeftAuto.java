@@ -82,8 +82,9 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
         */
 
 
+
         //close the arm to secure the cone
-        /*claw.setPosition(CLAWCLOSE);
+        claw.setPosition(CLAWCLOSE);
 
         //right
         encoderWheelDrive(DRIVE_SPEED, -10, 10, 10, -10);
@@ -104,10 +105,10 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
         encoderWheelDrive(DRIVE_SPEED, -5, -5, -5, -5);
 
         //close arm
-        //encoderArmClose(20); //time it takes to close arm
+        encoderArmClose(20); //time it takes to close arm
 
         //left
-        //encoderWheelDrive(DRIVE_SPEED, 35.25, -35.25, -35.25, 35.25);*/
+        encoderWheelDrive(DRIVE_SPEED, 35.25, -35.25, -35.25, 35.25);*/
 
         //forward
         encoderWheelDrive(DRIVE_SPEED, 15.5, 15.5, 15.5, 15.5);
