@@ -7,9 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="RedLeftBlueRightAuto")
-public class RedLeftAuto extends LinearOpMode {
-
+@Autonomous(name="RedLeftBlueLeftAuto")
+public class RedLeftBlueLeftAuto extends LinearOpMode {
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // No External Gearing.
     static final double     WHEEL_DIAMETER_INCHES   = 3.85827;     // For figuring circumference
@@ -66,8 +65,24 @@ public class RedLeftAuto extends LinearOpMode {
 
         waitForStart();
 
+        /*
+        //front
+        encoderWheelDrive(DRIVE_SPEED, 15, 15, 15, 15);
+        //right
+        encoderWheelDrive(DRIVE_SPEED, -15, 15, 15, -15);
+        //left
+        encoderWheelDrive(DRIVE_SPEED, 15, -15, -15, 15);
+        //turn right
+        encoderWheelDrive(DRIVE_SPEED, -15, 15, -15, 15);
+        //turn left
+        encoderWheelDrive(DRIVE_SPEED, 15, -15, 15, -15);
+        //back
+        encoderWheelDrive(DRIVE_SPEED, -15, -15, -15, -15);
+        */
+
+
         //close the arm to secure the cone
-        claw.setPosition(CLAWCLOSE);
+        /*claw.setPosition(CLAWCLOSE);
 
         //right
         encoderWheelDrive(DRIVE_SPEED, -10, 10, 10, -10);
@@ -91,51 +106,64 @@ public class RedLeftAuto extends LinearOpMode {
         //encoderArmClose(20); //time it takes to close arm
 
         //left
-        //encoderWheelDrive(DRIVE_SPEED, 35.25, -35.25, -35.25, 35.25);
+        //encoderWheelDrive(DRIVE_SPEED, 35.25, -35.25, -35.25, 35.25);*/
 
         //forward
-        //encoderWheelDrive(DRIVE_SPEED, 35.25, 35.25, 35.25, 35.25);
+        encoderWheelDrive(DRIVE_SPEED, 15.5, 15.5, 15.5, 15.5);
 
         //in front of the cone
         //returns color values when arm is up
         telemetry.addData("Red", sensor.red());
         telemetry.addData("Blue", sensor.blue());
         telemetry.addData("Green", sensor.green());
-        telemetry.addData("Alpha", sensor.alpha());
+        //telemetry.addData("Alpha", sensor.alpha());
         telemetry.update();
 
 
         //sensor colors
         runtime.reset();
         sensor.enableLed(true);
-        if (sensor.red() >= 700) //<-- might not need this  //ZONE 1
+        if (sensor.red() > sensor.blue() && sensor.red() > sensor.green()) // zone one
         {
-            if (sensor.red() > sensor.blue() && sensor.red() > sensor.green())
-            {
-                // movement left by 1 tile
-                encoderWheelDrive(DRIVE_SPEED, -23.5, 23.5, 23.5, -23.5);
-            }
+            //move backward a little
+            encoderWheelDrive(DRIVE_SPEED, -13.5, -13.5, -13.5, -13.5);
+            //movement left by a 1 tiles
+            encoderWheelDrive(DRIVE_SPEED, 22, -22, -22, 22);
+            //movement forward by 1.5 tiles
+            encoderWheelDrive(DRIVE_SPEED, 30, 30, 30, 30);
+            telemetry.addData("Red", sensor.red());
+            telemetry.addData("Blue", sensor.blue());
+            telemetry.addData("Green", sensor.green());
+            //telemetry.addData("Alpha", sensor.alpha());
+        }
+        else if (sensor.green() > sensor.blue() && sensor.green() > sensor.red()) // zone two
+        {
+            // movement straight by one tile
+            encoderWheelDrive(DRIVE_SPEED, 15, 15, 15, 15);
+            telemetry.addData("Red", sensor.red());
+            telemetry.addData("Blue", sensor.blue());
+            telemetry.addData("Green", sensor.green());
+            //telemetry.addData("Alpha", sensor.alpha());
+        }
+        else { //zone 3
+            //move backward a little
+            encoderWheelDrive(DRIVE_SPEED, -13.5, -13.5, -13.5, -13.5);
+            //movement right by a 1 tile
+            encoderWheelDrive(DRIVE_SPEED, -22, 22, 22, -22);
+            //movement forward by 1.5 tiles
+            encoderWheelDrive(DRIVE_SPEED, 30, 30, 30, 30);
+            telemetry.addData("Red", sensor.red());
+            telemetry.addData("Blue", sensor.blue());
+            telemetry.addData("Green", sensor.green());
+            //telemetry.addData("Alpha", sensor.alpha());
+        }
 
-        }
-        else if (sensor.green() >= 700) //ZONE 2
-        {
-            if (sensor.green() > sensor.blue() && sensor.green() > sensor.red())
-            {
-                // movement straight a bit
-                encoderWheelDrive(DRIVE_SPEED, 10, 10, 10, 10);
-            }
-        }
-        else if (sensor.blue() >= 700) //ZONE 3
-        {
-            if (sensor.blue() > sensor.red() && sensor.blue() > sensor.green())
-            {
-                // movement right by 1 tile
-                encoderWheelDrive(DRIVE_SPEED, 23.5, -23.5, -23.5, 23.5);
-            }
-        }
+
         sensor.enableLed(false);
-
-
+        telemetry.addData("Red", sensor.red());
+        telemetry.addData("Blue", sensor.blue());
+        telemetry.addData("Green", sensor.green());
+        //telemetry.addData("Alpha", sensor.alpha());
 
     }
 

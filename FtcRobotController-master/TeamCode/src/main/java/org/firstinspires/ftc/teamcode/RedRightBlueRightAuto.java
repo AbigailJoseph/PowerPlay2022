@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-@Autonomous(name="RedRightBlueLeftAuto")
-public class RedRightAuto extends LinearOpMode {
+@Autonomous(name="RedRightBlueRightAuto")
+public class RedRightBlueRightAuto extends LinearOpMode {
 
     static final double COUNTS_PER_MOTOR_REV = 1440;    // eg: TETRIX Motor Encoder
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // No External Gearing.
@@ -65,12 +65,16 @@ public class RedRightAuto extends LinearOpMode {
 
         waitForStart();
 
+        /*
         claw.setPosition(CLAWCLOSE);
         //strafe right
         encoderWheelDrive(DRIVE_SPEED, -20, 20, 20, -20);
 
         //lift up arm
         encoderArmOpen(0.3, 10, 40);
+        */
+
+        encoderWheelDrive(DRIVE_SPEED, 13.5, 13.5, 13.5, 13.5);
 
         //returns color values when arm is up
         telemetry.addData("Red", sensor.red());
@@ -79,42 +83,31 @@ public class RedRightAuto extends LinearOpMode {
         telemetry.addData("Alpha", sensor.alpha());
         telemetry.update();
 
-        encoderArmClose(20); //time it takes to close arm
 
-        /*
         //sensor colors
         runtime.reset();
         sensor.enableLed(true);
-        if (sensor.red() >= 700) //<-- might not need this  //ZONE 1
+        if (sensor.red() > sensor.blue() && sensor.red() > sensor.green()) // zone one
         {
-            if (sensor.red() > sensor.blue() && sensor.red() > sensor.green())
-            {
-                // movement straight by 2 tiles and left by 1 tile
-                encoderWheelDrive(DRIVE_SPEED, 47, 47, 47, 47);
-                encoderWheelDrive(DRIVE_SPEED, -23.5, 23.5, 23.5, -23.5);
-            }
-
+            //movement left by 1 tile
+            encoderWheelDrive(DRIVE_SPEED, -10, 10, 10, -10);
+            //movement forward by 1 tile
+            encoderWheelDrive(DRIVE_SPEED, 10, 10, 10, 10);
         }
-        else if (sensor.green() >= 700) //ZONE 2
+        else if (sensor.green() > sensor.blue() && sensor.green() > sensor.red()) // zone two
         {
-            if (sensor.green() > sensor.blue() && sensor.green() > sensor.red())
-            {
-                // movement straight by 2 tiles
-                encoderWheelDrive(DRIVE_SPEED, 47, 47, 47, 47);
-            }
+            // movement straight by one tile
+            encoderWheelDrive(DRIVE_SPEED, 15, 15, 15, 15);
         }
-        else if (sensor.blue() >= 700) //ZONE 3
+        else if (sensor.blue() > sensor.red() && sensor.blue() > sensor.green()) // zone three
         {
-            if (sensor.blue() > sensor.red() && sensor.blue() > sensor.green())
-            {
-                // movement straight by 2 tiles and right by 1 tile
-                encoderWheelDrive(DRIVE_SPEED, 47, 47, 47, 47);
-                encoderWheelDrive(DRIVE_SPEED, 23.5, -23.5, -23.5, 23.5);
-            }
+            // movement right by 1 tile
+            encoderWheelDrive(DRIVE_SPEED, 10, -10, -10, 10);
+            //movement forward by 1 tile
+            encoderWheelDrive(DRIVE_SPEED, 10, 10, 10, 10);
         }
         sensor.enableLed(false);
 
-        */
 
     }
 
