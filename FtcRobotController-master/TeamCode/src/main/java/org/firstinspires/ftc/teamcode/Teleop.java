@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -90,25 +91,27 @@ public class Teleop extends LinearOpMode {
 
             //                                  [GAME PAD 2]
 
-
             if (gamepad2.left_bumper) { //OPEN
-                claw.setPosition(0);
+                clawPosition += 0.2;
+                //claw.setPosition(0.0);
 
             } else if (gamepad2.right_bumper) { //CLOSE
-                claw.setPosition(1);
+                clawPosition -= 0.2;
+                //claw.setPosition(0.9);
                 telemetry.addData("Servo Position", clawPosition);
                 telemetry.update();
             }
             clawPosition = Range.clip(clawPosition, 0.1, 1.0);
+            claw.setPosition(clawPosition);
             telemetry.addData("Servo Position", clawPosition);
             telemetry.update();
 
             if (gamepad2.y) { //preset high height
-                encoderArmUp(8);
+                encoderArmUp(7.9);
             } else if (gamepad2.b) { //preset medium height
                 encoderArmUp(6.0);
             } else if (gamepad2.a) {//preset low height
-                encoderArmUp(5.0);
+                encoderArmUp(4.0);
             } else if (gamepad2.x) { //down
                 runtime.reset();
                 while (runtime.seconds() < 0.1) {
@@ -150,8 +153,8 @@ public class Teleop extends LinearOpMode {
                 rightArm.setPower(0.15);
                 leftArm.setPower(-0.1);
             } else { //KEEP AT POSITION WHEN NO BUTTON PRESSED
-                rightArm.setPower(0.002); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
-                leftArm.setPower(-0.002);
+                rightArm.setPower(0.001); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
+                leftArm.setPower(-0.001);
             }
 
         }
@@ -176,8 +179,8 @@ public class Teleop extends LinearOpMode {
 
 
             //start motion.
-            rightArm.setPower(0.15);
-            leftArm.setPower(0.1);
+            rightArm.setPower(0.2);
+            leftArm.setPower(0.15);
 
             while (leftArm.isBusy() && rightArm.isBusy()) ;
 

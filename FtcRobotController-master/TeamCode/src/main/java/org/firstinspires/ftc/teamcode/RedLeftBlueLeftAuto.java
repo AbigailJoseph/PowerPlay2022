@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="RedLeftBlueLeftAuto")
+@Autonomous(name="CompetitionAuto")
 public class RedLeftBlueLeftAuto extends LinearOpMode {
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // No External Gearing.
@@ -83,7 +83,7 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
 
 
         //close the arm to secure the cone
-        claw.setPosition(CLAWCLOSE);
+        /*claw.setPosition(CLAWCLOSE);
 
         //right
         encoderWheelDrive(DRIVE_SPEED, -10, 10, 10, -10);
@@ -107,8 +107,8 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
         encoderArmClose(20); //time it takes to close arm
 
         //left
-        encoderWheelDrive(DRIVE_SPEED, 35.25, -35.25, -35.25, 35.25);*/
-
+        encoderWheelDrive(DRIVE_SPEED, 35.25, -35.25, -35.25, 35.25);
+*/
         //forward
         encoderWheelDrive(DRIVE_SPEED, 15.5, 15.5, 15.5, 15.5);
 
