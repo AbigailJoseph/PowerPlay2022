@@ -75,7 +75,7 @@ public class Teleop extends LinearOpMode {
         while (opModeIsActive()) {
 
             //     nn                              [GAME PAD 1]
-            double speed;
+            /*double speed;
             double strafe;
             double turn;
 
@@ -83,11 +83,69 @@ public class Teleop extends LinearOpMode {
             strafe = gamepad1.right_stick_x;
             turn = gamepad1.left_stick_x;
 
+            //speed = Range.clip(speed, -1,1);
+            //strafe = Range.clip(strafe, -1,1);
+            //turn = Range.clip(turn, -1,1);
+
             // WHEEL MOVEMENT(left stick) & ROTATION(right stick)
             frontLeft.setPower(speed + turn + strafe);
             frontRight.setPower(speed - turn - strafe);
             backLeft.setPower(speed + turn - strafe);
-            backRight.setPower(speed - turn + strafe);
+            backRight.setPower(speed - turn + strafe);*/
+
+            //alternate teleop
+            if(gamepad1.right_stick_y > 0.3){
+                frontLeft.setPower(-0.425);
+                frontRight.setPower(-0.425);
+                backLeft.setPower(-0.425);
+                backRight.setPower(-0.425);
+            }
+            else if(gamepad1.right_stick_y < -0.3){
+                frontLeft.setPower(0.425);
+                frontRight.setPower(0.425);
+                backLeft.setPower(0.425);
+                backRight.setPower(0.425);
+            }
+            else if(gamepad1.right_stick_x > 0.3){ //right
+                frontLeft.setPower(0.45);
+                frontRight.setPower(-0.45);
+                backLeft.setPower(-0.45);
+                backRight.setPower(0.45);
+            }
+            else if(gamepad1.right_stick_x < -0.3){ //left
+                frontLeft.setPower(-0.55);
+                frontRight.setPower(0.55);
+                backLeft.setPower(0.55);
+                backRight.setPower(-0.55);
+            }
+            else { //right rotation
+                frontLeft.setPower(0);
+                frontRight.setPower(0);
+                backLeft.setPower(0);
+                backRight.setPower(0);
+            }
+
+            if(gamepad1.left_stick_x < -0.3){ //left rotation
+                frontLeft.setPower(-0.45);
+                frontRight.setPower(0.45);
+                backLeft.setPower(-0.45);
+                backRight.setPower(0.45);
+            }
+            else if(gamepad1.left_stick_x > 0.3){ //right rotation
+                frontLeft.setPower(0.45);
+                frontRight.setPower(-0.45);
+                backLeft.setPower(0.45);
+                backRight.setPower(-0.45);
+            }
+            else { //right rotation
+                frontLeft.setPower(0);
+                frontRight.setPower(0);
+                backLeft.setPower(0);
+                backRight.setPower(0);
+            }
+
+
+
 
             //                                  [GAME PAD 2]
 
@@ -111,7 +169,7 @@ public class Teleop extends LinearOpMode {
             } else if (gamepad2.b) { //preset medium height
                 encoderArmUp(6.0);
             } else if (gamepad2.a) {//preset low height
-                encoderArmUp(4.0);
+                encoderArmUp(5.5);
             } else if (gamepad2.x) { //down
                 runtime.reset();
                 while (runtime.seconds() < 0.1) {
@@ -153,8 +211,13 @@ public class Teleop extends LinearOpMode {
                 rightArm.setPower(0.15);
                 leftArm.setPower(-0.075);
             } else { //KEEP AT POSITION WHEN NO BUTTON PRESSED
-                rightArm.setPower(0.001); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
-                leftArm.setPower(-0.001);
+                //runtime.reset();
+                //while(runtime.seconds() < 6){
+                    rightArm.setPower(0.001); //SMALLER THIS VALUE IS THE LONGER IT WILL TAKE FOR THE ARM TO SHOOT UP
+                    leftArm.setPower(-0.001);
+               // }
+               // rightArm.setPower(0);
+              //  leftArm.setPower(0);
             }
 
         }
@@ -179,7 +242,7 @@ public class Teleop extends LinearOpMode {
 
 
             //start motion.
-            rightArm.setPower(0.2);
+            rightArm.setPower(0.2125);
             leftArm.setPower(0.15);
 
             while (leftArm.isBusy() && rightArm.isBusy()) ;

@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="369 Competition Auto")
+@Autonomous(name="369 Auto")
 public class RedLeftBlueLeftAuto extends LinearOpMode {
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // No External Gearing.
@@ -110,7 +110,7 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
         encoderWheelDrive(DRIVE_SPEED, 35.25, -35.25, -35.25, 35.25);
 */
         //forward
-        encoderWheelDrive(DRIVE_SPEED, 15.5, 15.5, 15.5, 15.5);
+        encoderWheelDrive(DRIVE_SPEED, 16.5, 16.5, 16.5, 16.5);
 
         //in front of the cone
         //returns color values when arm is up
@@ -137,22 +137,23 @@ public class RedLeftBlueLeftAuto extends LinearOpMode {
             telemetry.addData("Green", sensor.green());
             //telemetry.addData("Alpha", sensor.alpha());
         }
-        else if (sensor.green() > sensor.blue() && sensor.green() > sensor.red()) // zone two
+        else if (sensor.green() > sensor.blue() && sensor.green() > sensor.red()) // zone three
         {
-            // movement straight by one tile
-            encoderWheelDrive(DRIVE_SPEED, 15, 15, 15, 15);
-            telemetry.addData("Red", sensor.red());
-            telemetry.addData("Blue", sensor.blue());
-            telemetry.addData("Green", sensor.green());
-            //telemetry.addData("Alpha", sensor.alpha());
-        }
-        else { //zone 3
             //move backward a little
             encoderWheelDrive(DRIVE_SPEED, -13.5, -13.5, -13.5, -13.5);
             //movement right by a 1 tile
             encoderWheelDrive(DRIVE_SPEED, -22, 22, 22, -22);
             //movement forward by 1.5 tiles
             encoderWheelDrive(DRIVE_SPEED, 30, 30, 30, 30);
+            telemetry.addData("Red", sensor.red());
+            telemetry.addData("Blue", sensor.blue());
+            telemetry.addData("Green", sensor.green());
+            //telemetry.addData("Alpha", sensor.alpha());
+        }
+        else { //zone 2
+
+            // movement straight by one tile
+            encoderWheelDrive(DRIVE_SPEED, 15, 15, 15, 15);
             telemetry.addData("Red", sensor.red());
             telemetry.addData("Blue", sensor.blue());
             telemetry.addData("Green", sensor.green());
