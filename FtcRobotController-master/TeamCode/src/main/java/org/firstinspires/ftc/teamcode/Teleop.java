@@ -149,6 +149,9 @@ public class Teleop extends LinearOpMode {
 
             //                                  [GAME PAD 2]
 
+            //linear slide
+            
+
             if (gamepad2.left_bumper) { //OPEN
                 clawPosition += 0.2;
                 //claw.setPosition(0.0);
