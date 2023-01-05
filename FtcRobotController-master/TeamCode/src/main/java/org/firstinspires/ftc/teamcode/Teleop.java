@@ -25,6 +25,7 @@ public class Teleop extends LinearOpMode {
     private DcMotor rightArm = null;
     private DcMotor leftArm = null;
     private Servo claw = null;
+    private DcMotor slide = null;
     private double clawPosition;
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
@@ -37,6 +38,7 @@ public class Teleop extends LinearOpMode {
 
     private final double CLAWCLOSE = 0.1;
     private final double CLAWOPEN = 1.0;
+
 
     @Override
     public void runOpMode() {
@@ -150,7 +152,7 @@ public class Teleop extends LinearOpMode {
             //                                  [GAME PAD 2]
 
             //linear slide
-            
+
 
             if (gamepad2.left_bumper) { //OPEN
                 clawPosition += 0.2;
@@ -259,6 +261,21 @@ public class Teleop extends LinearOpMode {
 
 
             //  sleep(250);   // pause after each move
+        }
+
+        public void rotateBack(double position){
+        //backArm.setPosition(position);
+        }
+
+        public void rotateFront(double position){
+
+        }
+
+        public void linearSlidesMove (int distance)
+        {
+            slide.setTargetPosition(distance);
+            slide.setPower(0.35);
+            slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
     }
